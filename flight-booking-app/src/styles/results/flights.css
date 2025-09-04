@@ -1,0 +1,229 @@
+/* ===========================
+   FLIGHTS (lists only)
+   =========================== */
+:root {
+    --bg: #f3f6fb;
+    --card: #ffffff;
+    --line: #e7ecf5;
+    --text: #0f172a;
+    --muted: #6b7280;
+
+    --accent: #e84e0f;
+    /* cam nút/tiêu đề giống site gốc */
+    --price: #d40000;
+    /* đỏ giá */
+    --radius: 10px;
+    --shadow: 0 2px 6px rgba(16, 24, 40, .06);
+}
+
+/* ----- header cột khứ hồi (trên mỗi danh sách) ----- */
+.results-page .rt-head {
+    background-color: #e84e0f;
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px 12px 8px;
+    margin: 16px 0;
+    font-weight: 800;
+    line-height: 1.2;
+    box-shadow: var(--shadow);
+}
+
+.results-page .rt-head .muted {
+    display: block;
+    opacity: .9;
+    font-weight: 600;
+}
+
+/* ======================
+     FLIGHT CARD – BASE
+     ====================== */
+.results-page .flight-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr) 150px;
+    /* base 1 chiều */
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+}
+
+.results-page .fc-left,
+.results-page .fc-mid,
+.results-page .fc-right {
+    min-width: 0;
+}
+
+/* left (logo + tên hãng) */
+.results-page .fc-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.results-page .fc-logo {
+    height: 28px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.results-page .fc-airline {
+    font-weight: 700;
+    line-height: 1.15;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* mid (giờ + meta) */
+.results-page .fc-mid {
+    min-width: 0;
+}
+
+.results-page .fc-time {
+    font-weight: 800;
+    font-size: 16px;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.results-page .fc-meta {
+    margin-top: 2px;
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.results-page .fc-mid .dot {
+    opacity: .35;
+}
+
+/* right (giá + nút) */
+.results-page .fc-right {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+}
+
+.results-page .fc-price {
+    color: var(--price);
+    font-weight: 900;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.results-page .btn.choose {
+    height: 32px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #e84e0f;
+    color: #fff;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .12);
+}
+
+.results-page .btn.choose:active {
+    transform: translateY(.5px);
+}
+
+/* ======================
+     1 CHIỀU
+     ====================== */
+.r-grid .flight-card {
+    grid-template-columns: 200px minmax(0, 1fr) 150px;
+    /* nới trái để hiện tên hãng */
+}
+
+.r-grid .fc-airline {
+    display: block;
+}
+
+/* 1 chiều: giữ tên hãng */
+.r-grid .fc-price {
+    font-size: 18px;
+}
+
+/* ======================
+     KHỨ HỒI
+     ====================== */
+/* ép gọn hai biên: ưu tiên cột giữa (giờ bay) */
+.rt-grid .flight-card {
+    grid-template-columns: 100px minmax(0, 1fr) 120px;
+    /* trái 100 | giữa auto | phải 120 */
+    padding: 10px 10px;
+    gap: 8px;
+}
+
+/* khứ hồi: ẩn tên hãng để nhường chỗ */
+.rt-grid .fc-airline {
+    display: none !important;
+}
+
+.rt-grid .fc-logo {
+    height: 26px;
+}
+
+/* khứ hồi: ẩn chữ 'Bay thẳng' và dấu chấm; giữ thời lượng */
+.rt-grid .fc-meta .fc-stop {
+    display: none !important;
+}
+
+.rt-grid .fc-meta .dot {
+    display: none !important;
+}
+
+/* khứ hồi: to giá + to nút giống site gốc */
+.rt-grid .fc-price {
+    font-size: 18px;
+}
+
+.rt-grid .btn.choose {
+    height: 34px;
+    padding: 0 14px;
+    font-size: 13px;
+}
+
+/* hover card nhẹ */
+.results-page .flight-card:hover {
+    box-shadow: 0 4px 12px rgba(16, 24, 40, .10);
+}
+
+/* ======================
+     RESPONSIVE — chỉ cho card
+     (bố cục grid tổng nằm ở filters.css)
+     ====================== */
+@media (max-width:1024px) {
+    .results-page .flight-card {
+        grid-template-columns: 1fr;
+    }
+
+    .results-page .fc-right {
+        align-items: flex-start;
+        text-align: left;
+    }
+}

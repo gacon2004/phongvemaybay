@@ -1,0 +1,113 @@
+:root{
+    --blue:#0a5ed7;
+    --blue-dark:#0a3f9a;
+    --red:#f97316;
+    --green:#16a34a;
+    --bg:#f6f8fc;
+    --card:#fff;
+    --muted:#6b7280;
+    --border:#e7ebf5;
+    --radius:12px;
+  }
+  
+  .container{max-width:1120px;margin:0 auto;padding:16px}
+  .pay-wrap{background:transparent}
+  .pay-grid{
+    display:grid;
+    grid-template-columns: 1fr 420px;
+    gap:18px;
+  }
+  
+  .box{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:0 2px 8px rgba(16,24,40,.04);
+  }
+  .box-header{
+    padding:12px 14px;
+    font-weight:800;
+    background:#f7faff;
+    border-bottom:1px solid var(--border);
+  }
+  .box-header.red{background:var(--blue);color:#fff}
+  .box-header.center{text-align:center}
+  
+  .box-inner{padding:12px 14px}
+  
+  /* Order id badge */
+  .order-id{
+    font-weight:700;
+    background:#fff;
+    color:#0a3f9a;
+    border-radius:8px;
+    padding:2px 8px;
+    margin-left:8px;
+  }
+  
+  /* Route card */
+  .route-card{padding:12px 14px;border-bottom:1px dashed var(--border)}
+  .route-title{font-weight:800;margin-bottom:6px}
+  .route-sub{color:#334155}
+  
+  /* Passenger card */
+  .passenger-card{padding:12px 14px;border-bottom:1px dashed var(--border)}
+  .section-title{font-weight:800;margin-bottom:8px}
+  .passenger-item{
+    padding:8px 10px;
+    background:#f9fbff;
+    border:1px dashed #e9efff;
+    border-radius:8px;
+    margin-bottom:8px;
+  }
+  .contact{
+    padding-top:8px;
+  }
+  
+  /* Included list */
+  .included ul{margin:6px 0 0 0;padding-left:18px}
+  .included ul li{margin:6px 0;color:#334155}
+  
+  /* Right box */
+  .note{
+    margin:14px;
+    padding:10px 12px;
+    border-radius:10px;
+    background:#fff1e6;
+    color:#8a3a02;
+    font-weight:700;
+    text-align:center;
+    border:1px solid #ffd8b1;
+  }
+  
+  .pay-rows{padding:8px 14px}
+  .pay-row{
+    display:flex;justify-content:space-between;gap:12px;
+    padding:10px 0;border-bottom:1px dashed var(--border)
+  }
+  .pay-row:last-child{border-bottom:0}
+  .pay-row span{color:#334155}
+  .price{color:#c81e1e}
+  
+  .nowrap{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  
+  /* QR */
+  .qr-wrap{display:grid;place-items:center;padding:12px}
+  .qr-wrap img{width:260px;height:auto;border:1px solid var(--border);border-radius:12px}
+  
+  /* Buttons */
+  .btn{
+    width:calc(100% - 28px);
+    margin:10px 14px;
+    height:44px;border-radius:10px;border:1px solid var(--border);
+    font-weight:800;cursor:pointer;background:#fff;
+  }
+  .btn.success{background:var(--green);color:#fff;border-color:var(--green)}
+  .btn.ghost{background:#fff;color:#0f172a}
+  .btn.block{width:calc(100% - 28px)}
+  
+  @media (max-width: 1024px){
+    .pay-grid{grid-template-columns:1fr}
+  }
+  

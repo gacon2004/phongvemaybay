@@ -1,0 +1,77 @@
+
+   .site-footer{
+    background: transparent;
+    --footer-wrap: 900px;
+    --wrap: var(--footer-wrap, var(--wrap));
+  }
+  
+  /* Container của footer = đúng gutter & max-width thân (hoặc --footer-wrap nếu đặt) */
+  .site-footer > .container{
+    max-width: var(--wrap);
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 0px;                       /* cùng gutter với header/body */
+    box-sizing: border-box;
+  }
+  
+  /* Khối nền của footer */
+  .footer-inner{
+    background: #0c2c6b;
+    color: #dbe7ff;
+    border-radius: 0;
+    /* chỉ padding dọc, không cộng ngang để không lệch với container */
+    padding: 0;
+  }
+  
+  /* Lưới liên kết – 4 cột desktop, co dần xuống */
+  .footer-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    padding: 16px 0; 
+    margin-left: 30px;          
+  }
+  
+  @media (max-width: 1024px){
+    .footer-grid{ grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px){
+    .footer-grid{ grid-template-columns: 1fr; }
+  }
+  
+  /* Tiêu đề cột (nếu có) */
+  .foot-title{
+    margin: 0 0 8px 0;
+    font-weight: 800;
+    font-size: 16px;
+    color: #ffffff;
+  }
+  
+  /* Danh sách link */
+  .foot-links{
+    list-style: none;
+    padding: 0;
+    margin: 8px 0 0 0;
+  }
+  .foot-links li{ margin: 6px 0; }
+  
+  .foot-links a{
+    color: #dbe7ff;
+    text-decoration: none;
+    outline: none;
+  }
+  .foot-links a:hover{ text-decoration: underline; }
+  .foot-links a:focus-visible{
+    outline: 2px solid #89b4ff;           /* focus rõ ràng khi dùng bàn phím */
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  
+  /* Dải bản quyền */
+  .copyright{
+    padding: 10px 0;                       /* chỉ dọc */
+    border-top: 1px solid #1b3f8c;
+    text-align: center;
+    font-size: 13px;
+    color: #cfe0ff;
+  }

@@ -1,0 +1,172 @@
+/* ===========================
+   HEADER (Topbar)
+   =========================== */
+
+/* Bọc theo container, nền ngoài trong suốt */
+.topbar{ background: transparent; }
+.topbar .container{ padding: 0 0px; }  /* gutter chuẩn = footer */
+
+/* Thanh xanh đúng bề rộng container (không cộng thêm padding) */
+.topbar-inner{
+  height: 56px;
+  background: var(--blue);
+  color:#fff;
+  padding: 0;                           /* KHÔNG cộng thêm để khỏi lệch */
+  box-sizing: border-box;
+
+  display:grid;
+  grid-template-columns: auto 1fr auto auto; /* Logo | Menu | Hotline | Hamburger */
+  align-items:center;
+  gap:16px;
+
+  box-shadow:0 2px 6px rgba(0,0,0,.08);
+}
+
+/* Logo tròn trắng */
+.logo{ display:flex; align-items:center; text-decoration:none; padding-left: 20px}
+.logo .badge{
+  width:36px; height:36px; border-radius:50%;
+  background:#fff; display:grid; place-items:center;
+  box-shadow:0 1px 2px rgba(0,0,0,.08);
+}
+.logo img{ width:26px; height:26px; display:block; object-fit:contain; }
+
+/* Menu giữa (desktop) */
+.nav{ display:flex; justify-content:center; align-items:center; gap:18px; min-width:0; }
+.nav-link{
+  color:#e6f0ff; text-decoration:none; font-weight:600;
+  padding:6px 10px; border-radius:6px; line-height:1; white-space:nowrap;
+  transition: background .15s, color .15s, transform .1s;
+}
+.nav-link:hover{ background:rgba(255,255,255,.16); color:#fff; }
+.nav-link.active{ background:rgba(255,255,255,.25); color:#fff; }
+
+/* Hotline -> button (giữ code cũ) */
+.hotline-btn{
+  justify-self:end;
+  display:inline-flex; align-items:center; gap:8px;
+  background:#e60000; color:#fff;
+  padding:6px 12px; border-radius:6px; font-weight:800;
+  border:0; cursor:pointer; box-shadow:0 2px 0 rgba(0,0,0,.08);
+}
+.hotline-btn .ic{
+  width:18px; height:18px; border-radius:50%;
+  display:grid; place-items:center;
+  background:rgba(255,255,255,.15); font-size:14px;
+}
+.hotline-btn .text{ letter-spacing:.2px; }
+.hotline-btn:hover{ filter:brightness(1.03); }
+.hotline-btn:active{ transform:translateY(1px); }
+
+/* Hamburger (ẩn desktop) */
+.hamburger{ display:none; }
+
+/* Mobile */
+@media (max-width: 992px){
+  .nav.nav-desktop{ display:none; }
+  .hamburger{
+    display:inline-flex; flex-direction:column; justify-content:center;
+    gap:4px; width:38px; height:38px; margin-left:4px;
+    border:0; border-radius:8px; background:rgba(255,255,255,.15); color:#fff; cursor:pointer;
+  }
+  .hamburger span{ width:20px; height:2px; background:#fff; border-radius:2px; margin:0 auto; }
+
+  .topbar-inner{ grid-template-columns: auto 1fr auto auto; gap:10px; height:54px; padding:0; }
+  .hotline-btn{ padding:6px 10px; font-weight:700; }
+}
+
+/* -------- Offcanvas (panel trượt) -------- */
+.oc-overlay{
+  position:fixed; inset:0; background:rgba(0,0,0,.45);
+  z-index:1200; animation: fadeIn .15s ease-out both;
+}
+@keyframes fadeIn{ from{opacity:0} to{opacity:1} }
+
+.offcanvas{
+  position:fixed; top:0; left:0; bottom:0;
+  width: 280px; max-width: 85vw;
+  background: #0a4fa8;                 /* xanh đậm như ảnh */
+  color:#fff; z-index:1210;
+  transform: translateX(-100%);
+  transition: transform .22s ease-out;
+  display:flex; flex-direction:column;
+  box-shadow: 6px 0 24px rgba(0,0,0,.35);
+}
+.offcanvas.show{ transform: translateX(0); }
+
+.oc-header{
+  height:56px; display:flex; align-items:center; justify-content:space-between;
+  padding:0 12px; border-bottom:1px solid rgba(255,255,255,.12);
+  font-weight:800;
+}
+.oc-close{
+  width:32px; height:32px; border-radius:50%; border:0; cursor:pointer;
+  background:#f1f5f9; color:#111827;
+}
+
+.oc-nav{ padding: 10px 10px 16px; display:grid; gap:10px; }
+.oc-nav .nav-link{
+  display:flex; align-items:center; gap:8px;
+  color:#e6f0ff; text-decoration:none; font-weight:600;
+  padding:10px 12px; border-radius:8px; background:rgba(255,255,255,.06);
+}
+.oc-nav .nav-link.active{ background:#0a5ed7; color:#fff; }
+.oc-btn-refund{
+  display:inline-block; background:#ff6a00; color:#fff; text-decoration:none;
+  padding:8px 12px; border-radius:10px; font-weight:800; box-shadow:0 3px 0 rgba(0,0,0,.15);
+}
+
+/* Khi offcanvas mở, khoá cuộn body (class đặt ở app.css) */
+/* .menu-open => body overflow hidden ở app.css */
+
+/* ===========================
+   MODAL LIÊN HỆ (giữ nguyên phong cách)
+   =========================== */
+.modal-overlay{
+  position:fixed; inset:0; background:rgba(17,24,39,.55);
+  backdrop-filter: blur(2px); display:grid; place-items:center;
+  z-index:1100; animation: overlayIn .15s ease-out both;
+}
+@keyframes overlayIn{ from{opacity:0} to{opacity:1} }
+
+.modal-card{
+  width:440px; max-width:calc(100% - 32px);
+  background:#fff; border-radius:16px;
+  box-shadow:0 20px 60px rgba(0,0,0,.35);
+  padding:20px 22px 22px; position:relative;
+  animation: modalPop .18s ease-out both;
+}
+@keyframes modalPop{ from{transform:scale(.96);opacity:0} to{transform:scale(1);opacity:1} }
+
+.modal-close{
+  position:absolute; top:10px; right:10px;
+  width:32px; height:32px; border-radius:50%; border:0;
+  background:#f1f5f9; color:#111827; cursor:pointer; font-size:16px;
+}
+.modal-close:hover{ background:#e2e8f0; }
+
+.modal-title{
+  margin:6px 0 14px; text-align:center;
+  font-weight:800; font-size:20px; color:#ff6a00;
+}
+.modal-actions{ display:grid; gap:12px; }
+
+.btn{
+  display:block; width:50%; height:44px; border:0;
+  border-radius:12px; cursor:pointer; font-weight:800;
+  text-decoration:none; text-align:center; line-height:44px;
+  user-select:none; transition: filter .12s, transform .05s;
+}
+.btn-primary{
+  background:linear-gradient(180deg,#2e7cf6,#0a5ed7); color:#fff;
+  box-shadow:0 6px 16px rgba(10,94,215,.25), inset 0 -2px 0 rgba(0,0,0,.08);
+}
+.btn-primary:hover{ filter:brightness(.97); }
+.btn-primary:active{ transform:translateY(1px); }
+.btn-secondary{ background:#f1f5f9; color:#111827; }
+.btn-secondary:hover{ background:#e2e8f0; }
+
+@media (max-width:480px){
+  .modal-card{ padding:18px 16px 20px; }
+  .modal-title{ font-size:18px; }
+}

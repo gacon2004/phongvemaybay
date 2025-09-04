@@ -1,0 +1,177 @@
+ :root{
+    --wrap:1140px;
+    --blue:#0a5ed7;
+    --blue-dark:#0a3e9a;
+    --text:#0f172a;
+    --muted:#6b7280;
+    --bg:#f3f6fb;
+    --card:#ffffff;
+    --radius:10px;
+  }
+  
+  /* ===== GRID HOME ===== */
+  .home-page .grid{
+    display:grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap:16px;
+  }
+  .home-page .left-col,
+  .home-page .right-col{ min-width:0; }
+  .home-page .right-col{ position:relative; z-index:1; } /* dropdown luôn trên */
+  
+  /* ==== SEARCH CARD ==== */
+  .home-page .search-card{
+    background: var(--blue-dark);
+    color:#fff;
+    border-radius: 12px;
+    border: 1px solid #0d3e86;
+    box-shadow: 0 2px 0 rgba(0,0,0,.15) inset;
+    overflow: visible;
+  }
+  .home-page .search-card__title{
+    padding: 12px 16px;
+    font-weight: 800;
+    border-bottom: 1px solid #0d4a83;
+  }
+  .home-page .search-form{ padding: 14px 16px 16px; }
+  
+  /* 2 cột đều nhau */
+  .home-page .row.two{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 12px;
+  }
+  
+  /* label + icon */
+  .home-page .icon-label{ display:flex; align-items:center; gap:8px; }
+  .home-page .icon-label .i-plane::before{ content:"✈"; font-size:14px; display:inline-block; }
+  .home-page .icon-label.right{ justify-content:flex-start; }
+  .home-page .field label{ font-size:13px; opacity:.95; display:block; margin-bottom:6px; }
+  
+  /* clear button trong label-line */
+  .home-page .label-line{ display:flex; align-items:center; gap:8px; }
+  .home-page .link-clear{
+    background: transparent; border:0; color:#ffd89e; font-size:12px;
+    text-decoration: none; cursor:pointer; margin-left:auto;
+  }
+  
+  /* inputs + swap */
+  .home-page .input-group{
+    display:grid; grid-template-columns: 1fr 34px; gap:8px; align-items:center;
+  }
+  .home-page .swap{
+    height:34px; border:0; border-radius:6px; background:#164495; color:#fff; cursor:pointer;
+  }
+  .home-page .search-card input[type="date"],
+  .home-page .search-card input[type="number"],
+  .home-page .search-card .airport-input{
+    height:36px;
+    background:#ffffff;
+    color:#0f172a;
+    border:1px solid #cfd8ea;
+    border-radius:6px;
+    padding:0 10px;
+    outline:none;
+  }
+  .home-page .search-card input::placeholder,
+  .home-page .search-card .airport-input::placeholder{ color:#6b7280; }
+  
+  /* counts */
+  .home-page .counts{
+    display:grid;
+    grid-template-columns: 120px 1fr;  /* mỗi hàng: input 120px + chú thích bên phải */
+    row-gap: 10px;
+    column-gap: 12px;
+    align-items: end;
+    margin-bottom: 10px;
+  }
+  .home-page .count-col label{ font-size:13px; margin-bottom:6px; display:block; }
+  .home-page .count-col input{
+    width:120px; height:36px; background:#fff; border:1px solid #cfd8ea; border-radius:6px;
+  }
+  .home-page .hint{ font-size:12px; color:#cfe1ff; align-self:center; }
+  
+  /* actions */
+  .home-page .row.actions{ display:flex; align-items:center; gap:10px; margin:6px 0 12px; }
+  .home-page .dot{ font-size:22px; line-height:1; opacity:.9; }
+  .home-page .btn{
+    height:38px; border:0; border-radius:8px; padding:0 14px; font-weight:700; cursor:pointer; background: linear-gradient(45deg, red, orange); color: white;
+  }
+  .home-page .btn.refund{ background:#ff7a00; color:#fff; box-shadow: inset 0 -2px 0 rgba(0,0,0,.2); }
+  .home-page .btn.primary{ background:#ff7a00; color:#fff; }
+  .home-page .btn.primary .i-search{ margin-right:6px; }
+  
+  /* banner dưới */
+  .home-page .promo img{ width:100%; margin-top: 10px; border-radius: 10px; }
+  
+  /* AirportSelect (trên Home) */
+  .home-page .airport-select{ position:relative; width:100%; }
+  .home-page .airport-input{
+    width:100%; height:38px;
+    border:1px solid #cfd8ea; background:#fff; color:#0f172a; border-radius:6px; padding:0 10px; outline:none;
+  }
+  .home-page .airport-input::placeholder{ color:#6b7280; }
+  .home-page .airport-panel.portal{
+    max-height:360px; overflow:auto;
+    background:#fff; color:#0f172a;
+    border:1px solid #e5e7eb; border-radius:10px;
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+    z-index:100000;
+  }
+  .home-page .airport-panel__top{ padding:10px; border-bottom:1px solid #f1f5f9; background:#fafafa; position:sticky; top:0; }
+  .home-page .airport-search{
+    width:100%; height:34px; padding:0 10px;
+    border:1px solid #e2e8f0; border-radius:6px; outline:none;
+  }
+  .home-page .airport-grid{
+    display:grid; grid-template-columns:repeat(5,1fr);
+    gap:16px; padding:12px; min-width:740px;
+  }
+  .home-page .airport-col{ min-width:140px; }
+  .home-page .airport-region{ font-weight:800; color:#0b3d9b; margin-bottom:8px; }
+  .home-page .airport-list{ list-style:none; margin:0; padding:0; }
+  .home-page .airport-item{ padding:6px 6px; border-radius:6px; cursor:pointer; }
+  .home-page .airport-item:hover{ background:#f1f5f9; }
+  .home-page .airport-city{ font-weight:600; }
+  .home-page .airport-sub{ font-size:12px; color:#475569; }
+  .home-page .airport-list.flat{ padding:8px 10px; }
+  .home-page .airport-empty{ padding:12px; color:#64748b; }
+  
+  /* ===== DEALS ===== */
+  .home-page .deals-banner{
+    display:flex; align-items:center; gap:12px; background:#e9f1ff; border:1px solid #d6e5ff;
+    border-radius:12px; padding:14px 12px;
+  }
+  .home-page .plane-emoji{font-size:34px}
+  .home-page .deals-title{font-weight:800;color:#0b3d9b}
+  .home-page .deals-hotline{color:#0b3d9b; font-size:14px; opacity:.85}
+  .home-page .plane-icon{width:100%;height:100%;object-fit:contain}
+  .home-page .deals-card{margin-top:12px;border:1px solid #e6eaf5;background:#fff;border-radius:12px;overflow:hidden}
+  .home-page .deals-card__title{padding:12px 14px; background:#f6f9ff; font-weight:700; border-bottom:1px solid #eef2fb}
+  .home-page .deal-list{list-style:none;margin:0;padding:0}
+  .home-page .deal-item{padding:12px 14px;border-top:1px dashed #eef2fb}
+  .home-page .deal-route{font-weight:700}
+  .home-page .deal-meta{display:flex;gap:8px;align-items:center;color:#111827}
+  .home-page .deal-price{color:#d40000;font-weight:800}
+  .home-page .sep{opacity:.4}
+  .home-page .detail-link{margin-left:auto;color:#0b5bd3;text-decoration:none}
+  .home-page .deal-note{padding:10px 14px;color:#6b7280;font-size:12px}
+  
+  /* ===== PAYMENT SECTION ===== */
+  .home-page .payment-section{
+    display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-top:18px;
+  }
+  .home-page .payment-box{background:#fff;border:1px solid #e7ebf5;border-radius:12px;padding:14px}
+  .home-page .buy-steps{margin:8px 0 0 18px}
+  .home-page .pay-list{list-style:none;padding:0;margin:8px 0 0 0;display:flex;gap:20px;flex-wrap:wrap}
+  .home-page .pay-list li{display:flex;align-items:center;gap:10px}
+  .home-page .qr-ico,.home-page .bank-ico{width:36px;height:36px;border-radius:8px;border:1px solid #cfd8ea;display:grid;place-items:center}
+  
+  /* ===== Responsive (Home) ===== */
+  @media (max-width: 1024px){
+    .home-page .grid{ grid-template-columns:1fr; }
+    .home-page .payment-section{ grid-template-columns:1fr; }
+    .home-page .airport-grid{ grid-template-columns:repeat(2,1fr); }
+  }
+  

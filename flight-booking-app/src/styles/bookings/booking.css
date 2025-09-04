@@ -1,0 +1,106 @@
+:root{
+    --blue:#0a5ed7;       /* xanh header/nhấn */
+    --blue-dark:#0a3e9a;
+    --card:#fff;
+    --muted:#6b7280;
+    --text:#0f172a;
+    --bg:#f4f6fb;
+    --accent:#ff4d4f;
+    --orange:#ff7a00;     /* nhấn tổng cộng */
+    --radius:10px;
+  }
+  
+  .container{max-width:1180px;margin:0 auto;padding:14px}
+  .booking-wrap{background:transparent}
+  
+  .booking-grid{
+    display:grid;
+    grid-template-columns: 1fr 360px;
+    gap:16px;
+  }
+  
+  .box{
+    background:var(--card);
+    border:1px solid #e6eaf5;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 1px 2px rgba(0,0,0,.03);
+    margin-bottom:12px;
+  }
+  
+  .box-header{
+    background:#f7f9ff;
+    padding:12px 14px;
+    font-weight:700;
+    border-bottom:1px solid #eef2fb;
+  }
+  .box-header.blue{
+    background:var(--blue);
+    color:#fff;
+    border-bottom-color:var(--blue);
+  }
+  
+  .flight-box .flyline{padding:12px 14px}
+  .flyline .time{font-size:15px;font-weight:700;margin-bottom:6px}
+  .flyline .meta{color:#374151;font-size:13px}
+  
+  .booking-left .box{padding-bottom:8px}
+  .pax-block{padding:12px 14px;border-top:1px dashed #eef2fb}
+  .pax-title{font-weight:700;color:#0f172a;margin-bottom:8px}
+  
+  .row-2,.row-3{display:grid;gap:8px;margin-bottom:10px}
+  .row-2{grid-template-columns:160px 1fr}
+  .row-3{grid-template-columns:120px 1fr 1fr}
+  
+  select,input{
+    height:40px;border:1px solid #d6d9e4;border-radius:8px;padding:0 10px;outline:none;
+    background:#fff;color:#111827;font-size:14px;
+  }
+  input::placeholder{color:#9aa5b1}
+  
+  .contact-row{padding:12px 14px;border-top:1px dashed #eef2fb}
+  .contact-row label{display:block;margin-bottom:6px;font-weight:600}
+  .req{color:#ff3b30}
+  .hint{font-size:12px;margin-top:6px;color:#6b7280}
+  .hint.ok{color:#0b8a00}
+  .hint.bad{color:#e11d48}
+  
+  .form-error{
+    color:#b00020;background:#ffeef1;border:1px solid #ffc8d1;
+    padding:8px 12px;border-radius:8px;margin:6px 14px;
+  }
+  
+  .actions{
+    padding:12px 14px;border-top:1px solid #eef2fb;display:flex;gap:10px;justify-content:flex-end
+  }
+  .btn{
+    height:42px;border-radius:8px;padding:0 14px;border:0;cursor:pointer;font-weight:700
+  }
+  .btn.primary{background:#ff7a00;color:#fff}
+  .btn.primary:disabled{opacity:.6;cursor:not-allowed}
+  .btn.ghost{background:#fff;border:1px solid #d6d9e4;color:#111827}
+  
+  .booking-right .price-box{padding-bottom:10px}
+  .price-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px dashed #eef2fb}
+  .price-row span{color:#374151}
+  .price-row strong{color:#0f172a}
+  
+  .voucher{
+    margin:10px 14px 4px 14px;height:42px;border-radius:8px;border:0;
+    background:#19ae4a;color:#fff;font-weight:800;cursor:pointer
+  }
+  .voucher:disabled{opacity:.6;cursor:not-allowed}
+  .voucher-note{color:#6b7280;font-size:12px;padding:0 14px 8px 14px}
+  
+  .total{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-top:2px solid #ffe2cc}
+  .total-number{font-size:18px;color:#e65100;font-weight:900}
+  
+  .included{padding:8px 14px 14px}
+  .included-title{font-weight:700;margin:6px 0 8px 0}
+  .included ul{padding-left:18px;margin:0}
+  .included li{margin:6px 0;color:#374151}
+  
+  @media (max-width: 1024px){
+    .booking-grid{grid-template-columns:1fr}
+  }
+  

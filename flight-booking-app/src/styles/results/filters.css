@@ -1,0 +1,84 @@
+/* ===========================
+   FILTERS / SIDEBAR + LAYOUT
+   =========================== */
+   :root{
+    --bg:#f3f6fb;
+    --card:#ffffff;
+    --line:#e7ecf5;
+    --text:#0f172a;
+    --muted:#6b7280;
+  
+    --accent:#ff7a00;
+    --radius:10px;
+    --shadow:0 2px 6px rgba(16,24,40,.06);
+  }
+  
+  /* ===== Layout 2 lists + sidebar (giống site gốc) ===== */
+  .results-page .r-grid{
+    display:grid;
+    grid-template-columns: minmax(0,1fr) 320px;     /* 1 chiều: list + sidebar */
+    gap:12px;
+    margin-top: 10px;
+  }
+  .results-page .rt-grid{
+    display:grid;
+    grid-template-columns: minmax(0,1fr) minmax(0,1fr) 320px;  /* khứ hồi: 2 list + sidebar */
+    gap:12px;
+  }
+  .results-page .r-right{ min-width:0; }
+  
+  /* ===== Sidebar box ===== */
+  .results-page .box{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:12px;
+    margin-bottom:12px;
+    box-shadow:var(--shadow);
+  }
+  .results-page .box-header{ font-weight:800; margin-bottom:8px; }
+  .results-page .radio,
+  .results-page .check{
+    display:flex; align-items:center; gap:8px; margin:6px 0;
+  }
+  .results-page .muted{ color:#94a3b8; }
+  .results-page .divider{ height:1px; background:#eef2fb; margin:10px 0; }
+  
+  /* nút nhỏ: Chọn tất cả / Bỏ tất cả */
+  .results-page .mini{
+    height:28px; padding:0 10px;
+    border:0; border-radius:6px;
+    background:#0b5bd3; color:#fff; font-size:12px;
+    cursor:pointer;
+  }
+  .results-page .mini.ghost{ background:#e5e7eb; color:#111827; }
+  .results-page .filter-actions{ display:flex; gap:8px; margin-bottom:8px; }
+  
+  /* nút 'THAY ĐỔI TÌM KIẾM' đồng bộ màu */
+  .results-page .btn.change{
+    width:100%; height:36px;
+    border:0; border-radius:8px; cursor:pointer;
+    background:var(--accent); color:#fff; font-weight:800;
+    box-shadow: inset 0 -2px 0 rgba(0,0,0,.12);
+  }
+  .results-page .btn.change:hover{ background:#e96a00; }
+  .results-page .btn.change:active{ transform:translateY(.5px); }
+  
+  /* card thông tin nhỏ (điểm đi/đến, ngày…) */
+  .results-page .mini-info{ font-size:14px; line-height:1.45; color:#111827; }
+  .results-page .mini-info strong{ font-weight:700; }
+  
+  /* ===== Responsive cho layout tổng ===== */
+  @media (max-width:1280px){
+    .results-page .rt-grid{
+      grid-template-columns: minmax(0,1fr) minmax(0,1fr); /* sidebar xuống dưới */
+    }
+    .results-page .r-right{ grid-column:1 / -1; }
+  }
+  @media (max-width:1024px){
+    .results-page .r-grid,
+    .results-page .rt-grid{
+      grid-template-columns:1fr;
+    }
+  }
+  

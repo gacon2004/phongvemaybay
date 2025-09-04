@@ -1,38 +1,187 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* ===========================
+   APP (global/shared)
+   (Header/Footer đã tách file riêng)
+   =========================== */
+   /* MỊN CHỮ TOÀN SITE */
+html{
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  
+  /* Nút & chip: thống nhất font/nhịp chữ */
+  button,
+  .btn,
+  .hotline-btn,
+  .cskh-chip{
+    font-family: inherit;    /* dùng stack đã khai báo ở body */
+    font-weight: 600;        /* bớt dày -> mịn hơn */
+    letter-spacing: .2px;
+    line-height: 1.1;
   }
-  to {
-    transform: rotate(360deg);
+  
+  /* Focus đẹp + accessible */
+  button:focus-visible,
+  .btn:focus-visible,
+  .hotline-btn:focus-visible,
+  .cskh-chip:focus-visible{
+    outline: 2px solid #9ec3ff;
+    outline-offset: 2px;
+    border-radius: 10px;
   }
-}
+  
+  /* Tinh chỉnh riêng một số nút đang đậm quá */
+  .hotline-btn,
+  .cskh-chip{
+    font-weight: 700;        /* thay vì 800 */
+    letter-spacing: .15px;
+  }
+  
+  /* Nút nền đậm giữ chữ trắng cho contrast tốt */
+  .btn-primary,
+  .hotline-btn{
+    color: #fff;
+  }
+
+   :root{
+    --wrap:900px;
+    --blue:#0a5ed7;
+    --blue-dark:#0a3e9a;
+    --blue-mid:#0e4fb6;
+    --accent:#ff4d4f;
+    --text:#0f172a;
+    --muted:#6b7280;
+    --bg:#f3f6fb;
+    --card:#ffffff;
+    --radius:10px;
+  
+    /* Page band */
+    --page-line:#e7ecf5;
+  }
+  
+  /* RESET */
+  *{ box-sizing:border-box; }
+  html,body,#root{ height:100%; }
+  body{
+    margin:0;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;
+    color:var(--text);
+    background:var(--bg);
+  }
+  
+  /* khoá cuộn khi mở menu mobile (offcanvas) */
+  body.menu-open{ overflow: hidden; }
+  
+  /* CONTAINER KHUNG NỘI DUNG */
+  .container{
+    max-width: var(--wrap);
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 12px; /* đồng bộ gutter với header/footer */
+  }
+  
+  /* ============ PAGE BAND (nền trắng = bề rộng header) ============ */
+  .page-band{
+    width: 100%;
+    background: transparent;
+    border: 0;
+    position: relative;                 /* để vẽ line nếu cần */
+  }
+  
+  /* Lớp trong có nền trắng, bằng đúng .container */
+  .page-band__inner{
+    position: relative;
+    background: #fff;
+    /* bỏ border-top để line đỏ chạm sát header */
+    border-top: 0;
+    border-bottom: 1px solid var(--page-line);
+    padding: 12px 0 12px;               /* chỉ padding dọc, không padding ngang */
+  }
+  
+  /* ===== Line đỏ = đúng bề rộng nền trắng & liền với header ===== */
+  .page-band__inner::before{
+    content:"";
+    position:absolute;
+    top: 0;                              /* sát mép trên của nền trắng */
+    left: 0;
+    right: 0;                            /* => ngang bằng chính .page-band__inner */
+    height: 4px;
+    background: #ff3131;                 /* đỏ thuần; đổi nếu cần */
+    border-radius: 999px;                /* 2 đầu bo đẹp */
+    pointer-events:none;
+    z-index: 1;
+  }
+  
+  /* ===== Anti-overflow cho phần thân (an toàn khi nội dung tràn) ===== */
+  .page-band__inner .row{
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  .page-band__inner [class*="col-"]{
+    padding-left: 12px;
+    padding-right: 12px;
+    box-sizing: border-box;
+  }
+  .page-band__inner img,
+  .page-band__inner iframe,
+  .page-band__inner video{
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  .page-band__inner > *{ max-width: 100%; }
+  
+  /* ===== Floating buttons & Modal (giữ nguyên) ===== */
+  .floating{ position:fixed; right:18px; bottom:18px; display:flex; flex-direction:column; gap:12px; z-index:60; }
+  .fab{ width:66px; height:66px; border-radius:50%; border:2px solid #fff; box-shadow:0 6px 16px rgba(0,0,0,.18); cursor:pointer }
+  .fab.red{ background:#ff3131; color:#fff; font-weight:800 }
+  .fab.outline{ background:#fff }
+  
+  .floating-help{ position: fixed; right: 18px; bottom: 50px; display: flex; flex-direction: column; gap: 14px; z-index: 1000; animation: float-in .45s ease-out both; }
+  @keyframes float-in { from { transform: translateY(18px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }
+  .cskh-chip{
+    background:#ff3131; color:#fff; border:2px solid #fff; border-radius:999px;
+    padding:8px 18px; font-weight:800; letter-spacing:.4px;
+    box-shadow:0 10px 24px rgba(0,0,0,.18); cursor:pointer; transition: transform .18s ease, box-shadow .18s ease; animation: bob 3s ease-in-out infinite;
+  }
+  .cskh-chip:hover{ transform: translateY(-2px) scale(1.03); }
+  .fab{
+    width: 76px; height: 76px; border-radius:50%; background:#ff2323; border:2px solid #fff;
+    box-shadow:0 12px 28px rgba(0,0,0,.22); display:grid; place-items:center; cursor:pointer; position:relative; transition: transform .2s ease, box-shadow .2s ease, filter .2s ease; animation: bob 2.8s ease-in-out infinite;
+  }
+  .fab svg{ width: 34px; height: 34px; }
+  .fab:hover{ transform: translateY(-3px) scale(1.05); filter: brightness(1.05); }
+  .fab:active{ transform: translateY(0) scale(0.98); }
+  .fab::before{
+    content:""; position:absolute; inset:-6px; border-radius:inherit;
+    border: 2px solid rgba(255,255,255,.55); animation: ring 1.6s ease-out infinite;
+  }
+  @keyframes ring { 0%{transform:scale(.85);opacity:.7} 70%{transform:scale(1.25);opacity:0} 100%{transform:scale(1.35);opacity:0} }
+  @keyframes bob  { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+  .fab[data-tip]::after{
+    content: attr(data-tip); position:absolute; right: 88px; top:50%;
+    transform: translateY(-50%) scale(.95); transform-origin:right center;
+    background:#111827; color:#fff; padding:6px 10px; border-radius:8px; font-size:12px;
+    white-space:nowrap; opacity:0; pointer-events:none; transition: transform .15s, opacity .15s; box-shadow:0 6px 18px rgba(0,0,0,.25);
+  }
+  .fab:hover::after{ opacity:1; transform: translateY(-50%) scale(1); }
+  @media (max-width:520px){ .fab{width:64px;height:64px} .cskh-chip{padding:6px 14px} }
+  
+  .modal-overlay{ position: fixed; inset: 0; background: rgba(0,0,0,.45); display:grid; place-items:center; z-index: 1100; animation: overlayIn .15s ease-out both; }
+  @keyframes overlayIn { from {opacity:0} to {opacity:1} }
+  .modal-card{ width: 360px; max-width: calc(100% - 32px); background: #fff; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,.35); padding: 18px 18px 22px; position: relative; animation: pop .18s ease-out both; }
+  @keyframes pop { from { transform: scale(.92); opacity: 0 } to { transform: scale(1); opacity: 1 } }
+  .modal-title{ font-weight: 700; text-align: center; margin-top: 6px; margin-bottom: 12px; color:#111827; }
+  .modal-close{ position:absolute; right: 8px; top: 8px; width:34px; height:34px; border-radius:50%;
+    border:none; background: #f1f5f9; color:#111827; cursor:pointer; font-size:16px; }
+  .modal-close:hover{ background:#e2e8f0 }
+  .qr-wrap{ border-radius: 10px; padding: 14px; background: linear-gradient(180deg,#ffe69b,#ffd166); display:grid; place-items:center; margin-bottom: 14px; }
+  .qr-wrap img{ display:block; width: 240px; height: 240px; object-fit: contain; background: #fff; border-radius: 10px; box-shadow: inset 0 0 0 8px #fff; }
+  .btn.open-zalo{ display:block; width:100%; height: 40px; border:0; border-radius: 10px; cursor:pointer; background:#0a5ed7; color:#fff; font-weight:700; }
+  .btn.open-zalo:hover{ filter: brightness(.95) }
+  
+  /* Responsive chung */
+  @media (max-width:1024px){
+    .page-band__inner{ padding:12px 0; }  /* bỏ padding ngang trên mobile */
+  }
+  
