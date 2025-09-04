@@ -35,12 +35,12 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-                <img src="https://www.abay.vn/_Web/_File/Images/Icons/BoCongThuong.png" alt="Bộ Công Thương" />
-                <img src="https://i.ibb.co/KcfnXPwr/image.png" alt="Bộ Công an" />
-                <img src="https://i.ibb.co/Lh2cF2gq/image.png" alt="may bay1" />
-                <img src="https://i.ibb.co/fdC642JN/image.png" alt="may bay2" />
-                <img src="https://i.ibb.co/9Hr7WKcK/image.png" alt="may bay3" />
-                <img src="https://i.ibb.co/m51rMJVZ/image.png" alt="may bay4" />
+                <img src="https://www.abay.vn/_Web/_File/Images/Icons/BoCongThuong.png" alt="Bộ Công Thương" width="150" height="100" />
+                <img src="https://i.ibb.co/KcfnXPwr/image.png" alt="Bộ Công an" width="150" height="100" />
+                <img src="https://i.ibb.co/Lh2cF2gq/image.png" alt="may bay1" width="150" height="100" />
+                <img src="https://i.ibb.co/fdC642JN/image.png" alt="may bay2" width="150" height="100" />
+                <img src="https://i.ibb.co/9Hr7WKcK/image.png" alt="may bay3" width="150" height="100" />
+                <img src="https://i.ibb.co/m51rMJVZ/image.png" alt="may bay4" width="150" height="100" />
             </div>
           </div>
 
