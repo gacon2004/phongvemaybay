@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="container">
         <div className="footer-inner">
           <div className="footer-grid">
-            
+
             {/* === KHỐI CÁC LIÊN KẾT === */}
             <div>
               <h4>Bạn còn thắc mắc</h4>
@@ -37,25 +37,23 @@ const Footer = () => {
                 <li><a href="/">Thanh toán trực tuyến</a></li>
               </ul>
             </div>
-            
+
             {/* === KHỐI ĐỐI TÁC & CHỨNG NHẬN === */}
-            <div className="partners-section"> {/* Thêm className cho khối này */}
+            <div>
               <h4>Đối tác & Chứng nhận</h4>
-              
+
               {/* Đối tác thanh toán */}
               <p>Đối tác thanh toán:</p>
-              <div className="payment-partner-logo"> {/* Thêm className cho div chứa logo đối tác */}
-                <img src="https://i.ibb.co/8qgvWP0/image.png" alt="Đối tác thanh toán" />
-              </div>
+              <img src="https://i.ibb.co/8qgvWP0/image.png" alt="Đối tác thanh toán" width="300" style={{ marginBottom: '20px' }} />
 
               {/* Các logo chứng nhận và hãng */}
-              <div className="certification-logos"> {/* Thêm className cho div chứa các logo nhỏ */}
-                <img src="https://www.abay.vn/_Web/_File/Images/Icons/BoCongThuong.png" alt="Bộ Công Thương" />
-                <img src="https://i.ibb.co/KcfnXPwr/image.png" alt="Bộ Công an" />
-                <img src="https://i.ibb.co/Lh2cF2gq/image.png" alt="Vietnam Airlines" />
-                <img src="https://i.ibb.co/fdC642JN/image.png" alt="Vietjet Air" />
-                <img src="https://i.ibb.co/9Hr7WKcK/image.png" alt="Bamboo Airways" />
-                <img src="https://i.ibb.co/m51rMJVZ/image.png" alt="Vietravel Airlines" />
+              <div>
+                <img src="https://www.abay.vn/_Web/_File/Images/Icons/BoCongThuong.png" alt="Bộ Công Thương" width="150" style={{ marginRight: '15px' }} />
+                <img src="https://i.ibb.co/KcfnXPwr/image.png" alt="Bộ Công an" width="150" style={{ marginRight: '15px' }} />
+                <img src="https://i.ibb.co/Lh2cF2gq/image.png" alt="Vietnam Airlines" width="150" style={{ marginRight: '15px' }} />
+                <img src="https://i.ibb.co/fdC642JN/image.png" alt="Vietjet Air" width="150" style={{ marginRight: '15px' }} />
+                <img src="https://i.ibb.co/9Hr7WKcK/image.png" alt="Bamboo Airways" width="150" style={{ marginRight: '15px' }} />
+                <img src="https://i.ibb.co/m51rMJVZ/image.png" alt="Vietravel Airlines" width="150" />
               </div>
             </div>
 
