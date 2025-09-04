@@ -16,8 +16,16 @@ const Footer = () => {
                 <li><a href="/">Thông tin chuyển khoản</a></li>
                 <li><a href="/">Hướng dẫn đặt vé</a></li>
                 <li><a href="/">Câu hỏi thường gặp</a></li>
+                
               </ul>
             </div>
+            <div>
+              Đối tác thanh toán 
+            </div>
+            <div>
+              <img src="https://i.ibb.co/8qgvWP0/image.png" alt="may bay1" width="400" style="margin-right: 15px;" />
+            </div>
+
             <div>
               <h4>Về chúng tôi</h4>
               <ul className="foot-links">
@@ -35,12 +43,12 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-                <img src="https://www.abay.vn/_Web/_File/Images/Icons/BoCongThuong.png" alt="Bộ Công Thương" width="150" height="100" />
-                <img src="https://i.ibb.co/KcfnXPwr/image.png" alt="Bộ Công an" width="150" height="80" />
-                <img src="https://i.ibb.co/Lh2cF2gq/image.png" alt="may bay1" width="150" height="80" />
-                <img src="https://i.ibb.co/fdC642JN/image.png" alt="may bay2" width="150" height="80" />
-                <img src="https://i.ibb.co/9Hr7WKcK/image.png" alt="may bay3" width="150" height="80" />
-                <img src="https://i.ibb.co/m51rMJVZ/image.png" alt="may bay4" width="150" height="80" />
+                <img src="https://www.abay.vn/_Web/_File/Images/Icons/BoCongThuong.png" alt="Bộ Công Thương" width="150" style="margin-right: 15px;" />
+                <img src="https://i.ibb.co/KcfnXPwr/image.png" alt="Bộ Công an" width="150" style="margin-right: 15px;" />
+                <img src="https://i.ibb.co/Lh2cF2gq/image.png" alt="may bay1" width="150" style="margin-right: 15px;" />
+                <img src="https://i.ibb.co/fdC642JN/image.png" alt="may bay2" width="150" style="margin-right: 15px;" />
+                <img src="https://i.ibb.co/9Hr7WKcK/image.png" alt="may bay3" width="150" style="margin-right: 15px;" />
+                <img src="https://i.ibb.co/m51rMJVZ/image.png" alt="may bay4" width="150" />
             </div>
           </div>
 
