@@ -165,7 +165,7 @@ export default function Booking() {
             <TitleSelect value={p.title} type={type} onChange={(v) => onChange(idx, "title", v)} />
             <input
               placeholder="Họ và tên người bay... (vd: NGUYEN VAN A)"
-              value={p.fullName}
+              defaultValue={p.fullName}
               onBlur={(e) => onChange(idx, "fullName", e.target.value.toUpperCase())}
             />
           </div>
