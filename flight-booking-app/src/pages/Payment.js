@@ -8,7 +8,7 @@ const money = (n) =>
 export default function Payment() {
   const { state } = useLocation();
   const nav = useNavigate();
-  const order = state?.order;
+  const order = state;
 
   if (!order) {
     return (
