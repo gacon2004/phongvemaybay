@@ -4,7 +4,8 @@ from fastapi.encoders import jsonable_encoder
 from typing import Annotated, List
 
 from Backend.client.vemaybay_controller import(
-    post_payment
+    post_payment,
+    search_flights
 )
 from Backend.client.vemaybay_model import(
     Payment_infor_model
@@ -17,3 +18,10 @@ router = APIRouter(prefix="/api", tags=["api"])
 def post_payment_info(payment_model : Payment_infor_model):
     detail = post_payment(payment_model)
     return JSONResponse(status_code=status.HTTP_201_CREATED, content=jsonable_encoder(detail))
+
+
+@router.post("/search")
+async def search_flights_endpoint(payload: dict):
+    # Gọi đến hàm controller để xử lý
+    results = await search_flights(payload)
+    return results

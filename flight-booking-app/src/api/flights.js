@@ -62,6 +62,6 @@ export async function searchFlights(form) {
       ...(round ? { retDate: retn } : {}), // <- đúng tên trường
     };
   
-    const { data } = await api.post("https://phongvemaybay247.com/search", payload);
+    const { data } = await api.post("/search", payload);
     return data;
   }
