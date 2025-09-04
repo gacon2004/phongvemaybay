@@ -8,7 +8,7 @@ const money = (n) =>
 export default function Payment() {
   const { state } = useLocation();
   const nav = useNavigate();
-  const order = state;
+  const order = state?.order;
 
   if (!order) {
     return (
@@ -20,7 +20,8 @@ export default function Payment() {
     );
   }
 
-  const { flight, passengers, phone, totals, priceBreakdown } = order;
+  // ✅ SỬA ĐỔI 1: Destructuring lại cho khớp với dữ liệu gửi từ Booking.js
+  const { flight, passengers, phone, subTotal, discount, grandTotal } = order;
 
   return (
     <div className="payment-wrap container">
@@ -55,15 +56,25 @@ export default function Payment() {
         <aside className="pay-right">
           <div className="box">
             <div className="box-header">Thông tin Thanh toán</div>
-            {priceBreakdown.adult.qty  > 0 && <div className="row"><span>Người lớn</span><strong>{money(priceBreakdown.adult.qty  * priceBreakdown.adult.unit)}</strong></div>}
-            {priceBreakdown.child.qty  > 0 && <div className="row"><span>Trẻ em</span><strong>{money(priceBreakdown.child.qty  * priceBreakdown.child.unit)}</strong></div>}
-            {priceBreakdown.infant.qty > 0 && <div className="row"><span>Em bé</span><strong>{money(priceBreakdown.infant.qty * priceBreakdown.infant.unit)}</strong></div>}
 
-            {totals.discount > 0 && <div className="row discount"><span>Voucher -20%</span><strong>-{money(totals.discount)}</strong></div>}
+            {/* ✅ SỬA ĐỔI 2: Hiển thị tổng tiền vé thay vì chi tiết */}
+            <div className="row">
+              <span>Tổng tiền vé</span>
+              <strong>{money(subTotal)}</strong>
+            </div>
+
+            {/* ✅ SỬA ĐỔI 3: Dùng biến 'discount' trực tiếp */}
+            {discount > 0 && (
+              <div className="row discount">
+                <span>Voucher -20%</span>
+                <strong>-{money(discount)}</strong>
+              </div>
+            )}
 
             <div className="total">
               <div>TỔNG CỘNG</div>
-              <div className="total-number">{money(totals.grandTotal)}</div>
+              {/* ✅ SỬA ĐỔI 4: Dùng biến 'grandTotal' trực tiếp */}
+              <div className="total-number">{money(grandTotal)}</div>
             </div>
 
             {/* QR fake (ảnh minh họa) */}
