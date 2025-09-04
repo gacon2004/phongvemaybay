@@ -81,19 +81,19 @@ export default function Payment() {
                     </div>
                     <div className="bank-info-row">
                         <span className="label">Ngân hàng:</span>
-                        <span className="value">VIB - Ngân Hàng Quốc Tế</span>
+                        <span className="value">TPBANK - Ngân Hàng Tiên Phong</span>
                     </div>
                     <div className="bank-info-row">
                         <span className="label">Chủ tài khoản:</span>
-                        <span className="value">HOANG THI SAM</span>
+                        <span className="value">DO DAT GIA PHAT</span>
                     </div>
                     <div className="bank-info-row">
                         <span className="label">Số tài khoản:</span>
-                        <span className="value">081459765</span>
+                        <span className="value">9989 8386 888</span>
                     </div>
                     <div className="bank-info-row">
                         <span className="label">Nội dung:</span>
-                        <span className="value">TEN VJCB NHTO MUA VE MAY BAY</span>
+                        <span className="value">VEMAYBAY247</span>
                     </div>
                 </div>
 
