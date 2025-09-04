@@ -17,7 +17,7 @@ const ADULT_TITLES = ["Ông", "Bà", "Anh", "Chị"];
 const CHILD_TITLE  = "Bé";
 
 const makePassenger = (type) => ({
-  id: crypto.randomUUID(), 
+  id: `${type}-${Date.now()}-${Math.random()}`, 
   type, // "adult" | "child" | "infant"
   title: type === "adult" ? "Ông" : "Bé",
   fullName: "",
