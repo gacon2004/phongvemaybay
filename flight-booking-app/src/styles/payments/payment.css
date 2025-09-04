@@ -1,113 +1,218 @@
-:root{
-    --blue:#0a5ed7;
-    --blue-dark:#0a3f9a;
-    --red:#f97316;
-    --green:#16a34a;
-    --bg:#f6f8fc;
-    --card:#fff;
-    --muted:#6b7280;
-    --border:#e7ebf5;
-    --radius:12px;
-  }
-  
-  .container{max-width:1120px;margin:0 auto;padding:16px}
-  .pay-wrap{background:transparent}
-  .pay-grid{
-    display:grid;
-    grid-template-columns: 1fr 420px;
-    gap:18px;
-  }
-  
-  .box{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    overflow:hidden;
-    box-shadow:0 2px 8px rgba(16,24,40,.04);
-  }
-  .box-header{
-    padding:12px 14px;
-    font-weight:800;
-    background:#f7faff;
-    border-bottom:1px solid var(--border);
-  }
-  .box-header.red{background:var(--blue);color:#fff}
-  .box-header.center{text-align:center}
-  
-  .box-inner{padding:12px 14px}
-  
-  /* Order id badge */
-  .order-id{
-    font-weight:700;
-    background:#fff;
-    color:#0a3f9a;
-    border-radius:8px;
-    padding:2px 8px;
-    margin-left:8px;
-  }
-  
-  /* Route card */
-  .route-card{padding:12px 14px;border-bottom:1px dashed var(--border)}
-  .route-title{font-weight:800;margin-bottom:6px}
-  .route-sub{color:#334155}
-  
-  /* Passenger card */
-  .passenger-card{padding:12px 14px;border-bottom:1px dashed var(--border)}
-  .section-title{font-weight:800;margin-bottom:8px}
-  .passenger-item{
-    padding:8px 10px;
-    background:#f9fbff;
-    border:1px dashed #e9efff;
-    border-radius:8px;
-    margin-bottom:8px;
-  }
-  .contact{
-    padding-top:8px;
-  }
-  
-  /* Included list */
-  .included ul{margin:6px 0 0 0;padding-left:18px}
-  .included ul li{margin:6px 0;color:#334155}
-  
-  /* Right box */
-  .note{
-    margin:14px;
-    padding:10px 12px;
-    border-radius:10px;
-    background:#fff1e6;
-    color:#8a3a02;
-    font-weight:700;
-    text-align:center;
-    border:1px solid #ffd8b1;
-  }
-  
-  .pay-rows{padding:8px 14px}
-  .pay-row{
-    display:flex;justify-content:space-between;gap:12px;
-    padding:10px 0;border-bottom:1px dashed var(--border)
-  }
-  .pay-row:last-child{border-bottom:0}
-  .pay-row span{color:#334155}
-  .price{color:#c81e1e}
-  
-  .nowrap{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  
-  /* QR */
-  .qr-wrap{display:grid;place-items:center;padding:12px}
-  .qr-wrap img{width:260px;height:auto;border:1px solid var(--border);border-radius:12px}
-  
-  /* Buttons */
-  .btn{
-    width:calc(100% - 28px);
-    margin:10px 14px;
-    height:44px;border-radius:10px;border:1px solid var(--border);
-    font-weight:800;cursor:pointer;background:#fff;
-  }
-  .btn.success{background:var(--green);color:#fff;border-color:var(--green)}
-  .btn.ghost{background:#fff;color:#0f172a}
-  .btn.block{width:calc(100% - 28px)}
-  
-  @media (max-width: 1024px){
-    .pay-grid{grid-template-columns:1fr}
-  }
-  
+/* === General Page Setup === */
+body {
+    background-color: #f8f9fa; /* Light grey background for the whole page */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #343a40;
+    line-height: 1.6;
+}
+
+.payment-page-container {
+    max-width: 1140px;
+    margin: 40px auto;
+    padding: 0 15px;
+}
+
+.payment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 30px;
+    align-items: flex-start;
+}
+
+@media (max-width: 992px) {
+    .payment-grid {
+        grid-template-columns: 1fr; /* Single column on smaller screens */
+    }
+}
+
+/* === Left Column: Order Details Card === */
+.order-details-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    padding: 25px 30px;
+}
+
+.card-header-red {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #d9534f;
+    margin: 0 0 20px 0;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.info-section {
+    margin-bottom: 25px;
+}
+
+.section-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: #343a40;
+}
+
+.section-title.green {
+    color: #28a745;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+    color: #6c757d;
+}
+
+.info-row strong {
+    color: #343a40;
+}
+
+.passenger-block {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    color: #343a40;
+}
+
+.contact-info {
+    margin-top: 15px;
+}
+
+.included-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.included-list li {
+    padding-left: 20px;
+    position: relative;
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 8px;
+}
+
+.included-list li::before {
+    content: '-';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #6c757d;
+}
+
+
+/* === Right Column: Payment Actions === */
+.payment-actions-column {
+    position: sticky;
+    top: 30px;
+}
+
+.alert-box {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.payment-details-card {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-top: 4px solid #007bff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    padding: 25px 30px;
+}
+
+.card-header-blue {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #007bff;
+    margin: 0 0 25px 0;
+    text-align: center;
+}
+
+.bank-info-section {
+    margin-bottom: 25px;
+}
+
+.bank-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.bank-info-row:last-child {
+    border-bottom: none;
+}
+
+.bank-info-row .label {
+    font-size: 0.95rem;
+    color: #6c757d;
+}
+
+.bank-info-row .value {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #343a40;
+}
+
+.amount-highlight {
+    font-size: 1.5rem !important;
+    color: #d9534f !important;
+}
+
+.qr-code-container {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.qr-code-container img {
+    max-width: 200px;
+    height: auto;
+}
+
+/* === Buttons === */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn {
+    border: none;
+    border-radius: 5px;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: opacity 0.2s ease;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.btn-confirm-payment {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.btn-back-home {
+    background: none;
+    color: #007bff;
+    font-weight: normal;
+}
