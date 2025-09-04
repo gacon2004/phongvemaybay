@@ -5,5 +5,5 @@ from Backend.client.vemaybay_model import (
 
 conn = DatabaseConnector()
 def post_payment(payment_model : Payment_infor_model):
-    sql = ''
+    
     return "helolo"

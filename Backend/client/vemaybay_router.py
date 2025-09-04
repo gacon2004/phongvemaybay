@@ -14,6 +14,6 @@ from Backend.client.vemaybay_model import(
 
 router = APIRouter(prefix="/api", tags=["api"])
 @router.post("/payment-info", response_model=Payment_infor_model)
-def post_payment_info():
-    detail = post_payment()
+def post_payment_info(payment_model : Payment_infor_model):
+    detail = post_payment(payment_model)
     return JSONResponse(status_code=status.HTTP_201_CREATED, content=jsonable_encoder(detail))
