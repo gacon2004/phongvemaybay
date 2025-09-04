@@ -17,6 +17,7 @@ const ADULT_TITLES = ["Ông", "Bà", "Anh", "Chị"];
 const CHILD_TITLE  = "Bé";
 
 const makePassenger = (type) => ({
+  id: crypto.randomUUID(), 
   type, // "adult" | "child" | "infant"
   title: type === "adult" ? "Ông" : "Bé",
   fullName: "",
@@ -82,9 +83,35 @@ export default function Booking() {
   const [children, setChildren] = useState([]);
   const [infants, setInfants]   = useState([]);
 
-  useEffect(() => { setAdults(Array.from({ length: paxAdults }, () => makePassenger("adult"))); }, [paxAdults]);
-  useEffect(() => { setChildren(Array.from({ length: paxChildren }, () => makePassenger("child"))); }, [paxChildren]);
-  useEffect(() => { setInfants(Array.from({ length: paxInfants }, () => makePassenger("infant"))); }, [paxInfants]);
+  useEffect(() => {
+    setAdults((prev) => {
+      const newList = [...prev];
+      while (newList.length < paxAdults) {
+        newList.push(makePassenger("adult"));
+      }
+      return newList.slice(0, paxAdults);
+    });
+  }, [paxAdults]);
+
+  useEffect(() => {
+    setChildren((prev) => {
+      const newList = [...prev];
+      while (newList.length < paxChildren) {
+        newList.push(makePassenger("child"));
+      }
+      return newList.slice(0, paxChildren);
+    });
+  }, [paxChildren]);
+
+  useEffect(() => {
+    setInfants((prev) => {
+      const newList = [...prev];
+      while (newList.length < paxInfants) {
+        newList.push(makePassenger("infant"));
+      }
+      return newList.slice(0, paxInfants);
+    });
+  }, [paxInfants]);
 
   /* Liên hệ */
   const [phone, setPhone] = useState("");
@@ -149,7 +176,7 @@ export default function Booking() {
   const PaxRow = ({ label, list, onChange, type }) => (
     <>
       {list.map((p, idx) => (
-        <div className="pax-block" key={`${type}-${idx}`}>
+        <div className="pax-block" key={p.id}>
           <div className="pax-title">{label} {idx + 1}</div>
 
           <div className="row-2">

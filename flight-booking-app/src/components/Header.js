@@ -63,7 +63,7 @@ export default function Header() {
           >
             <span className="ic" aria-hidden>📞</span>
             <span className="text">
-              HOTLINE Đặt Vé: <strong>082.885.9999</strong>
+              HOTLINE Đặt Vé: <strong>097.688.8888</strong>
             </span>
           </button>
 
