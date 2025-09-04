@@ -19,8 +19,8 @@ const ICONS = {
 const ZALO_QR_URL =
   "https://your-cdn-or-image-host.com/zalo-qr.png";   // Ảnh QR Zalo của bạn
 const ZALO_LINK = "https://zalo.me/xxxxxxxx";          // Link chat Zalo của bạn
-const HOTLINE = "0828859999";
-const MESSENGER_LINK = "https://m.me/your.page";
+const HOTLINE = "0976888888";
+const MESSENGER_LINK = "https://www.facebook.com/messages/t/464455963428285";
 
 /* ==== Helper ==== */
 const isMobile = () =>
