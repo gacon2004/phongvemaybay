@@ -9,15 +9,15 @@ const money = (n) =>
     .toLocaleString("vi-VN", { maximumFractionDigits: 0 })
     .replaceAll(",", ".") + " đ";
 
-const YEARS  = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i);
+const YEARS = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i);
 const MONTHS = Array.from({ length: 12 }, (_, i) => i + 1);
-const DAYS   = Array.from({ length: 31 }, (_, i) => i + 1);
+const DAYS = Array.from({ length: 31 }, (_, i) => i + 1);
 
 const ADULT_TITLES = ["Ông", "Bà", "Anh", "Chị"];
-const CHILD_TITLE  = "Bé";
+const CHILD_TITLE = "Bé";
 
-const makePassenger = (type,idx) => ({
-  id: `${type}-${idx}`, 
+const makePassenger = (type, idx) => ({
+  id: `${type}-${idx}`,
   type, // "adult" | "child" | "infant"
   title: type === "adult" ? "Ông" : "Bé",
   fullName: "",
@@ -57,31 +57,31 @@ export default function Booking() {
     total: 2119000,
   };
   const perBase = priceDetails.base ?? Math.max((priceDetails.total || 0) - (priceDetails.taxes || 0), 0);
-  const perTax  = priceDetails.taxes ?? Math.max((priceDetails.total || 0) - perBase, 0);
+  const perTax = priceDetails.taxes ?? Math.max((priceDetails.total || 0) - perBase, 0);
 
-  const paxAdults   = Number(form.adults || 0);
+  const paxAdults = Number(form.adults || 0);
   const paxChildren = Number(form.children || 0);
-  const paxInfants  = Number(form.infants || 0);
+  const paxInfants = Number(form.infants || 0);
 
   // Tính tổng theo số khách
-  const pricePerAdult  = perBase + perTax;
-  const pricePerChild  = perBase + perTax; // có thể khác nếu cần
+  const pricePerAdult = perBase + perTax;
+  const pricePerChild = perBase + perTax; // có thể khác nếu cần
   const pricePerInfant = 0;                // ví dụ: em bé 0đ
 
-  const subAdults   = paxAdults   * pricePerAdult;
+  const subAdults = paxAdults * pricePerAdult;
   const subChildren = paxChildren * pricePerChild;
-  const subInfants  = paxInfants  * pricePerInfant;
-  const subTotal    = subAdults + subChildren + subInfants;
+  const subInfants = paxInfants * pricePerInfant;
+  const subTotal = subAdults + subChildren + subInfants;
 
   // Voucher 20% (áp 1 lần)
   const [voucherApplied, setVoucherApplied] = useState(false);
-  const discount   = useMemo(() => (voucherApplied ? Math.round(subTotal * 0.2) : 0), [voucherApplied, subTotal]);
+  const discount = useMemo(() => (voucherApplied ? Math.round(subTotal * 0.2) : 0), [voucherApplied, subTotal]);
   const grandTotal = useMemo(() => subTotal - discount, [subTotal, discount]);
 
   /* Tạo form hành khách theo số lượng */
-  const [adults, setAdults]     = useState([]);
+  const [adults, setAdults] = useState([]);
   const [children, setChildren] = useState([]);
-  const [infants, setInfants]   = useState([]);
+  const [infants, setInfants] = useState([]);
 
   useEffect(() => {
     setAdults(Array.from({ length: paxAdults }, (_, i) => makePassenger("adult", i)));
@@ -103,8 +103,8 @@ export default function Booking() {
   const updatePax = (setter) => (idx, key, val) =>
     setter((list) => list.map((p, i) => (i === idx ? { ...p, [key]: val } : p)));
 
-  const upAdult  = updatePax(setAdults);
-  const upChild  = updatePax(setChildren);
+  const upAdult = updatePax(setAdults);
+  const upChild = updatePax(setChildren);
   const upInfant = updatePax(setInfants);
 
   // validate: tên + ngày sinh + sđt
@@ -166,7 +166,7 @@ export default function Booking() {
             <input
               placeholder="Họ và tên người bay... (vd: NGUYEN VAN A)"
               value={p.fullName}
-              onChange={(e) => onChange(idx, "fullName", e.target.value.toUpperCase())}
+              onBlur={(e) => onChange(idx, "fullName", e.target.value.toUpperCase())}
             />
           </div>
 
@@ -207,8 +207,8 @@ export default function Booking() {
             <div className="box-header">Thông tin hành khách và liên hệ</div>
 
             <PaxRow label="Người lớn" list={adults} onChange={upAdult} type="adult" />
-            <PaxRow label="Trẻ em"   list={children} onChange={upChild} type="child" />
-            <PaxRow label="Em bé"    list={infants} onChange={upInfant} type="infant" />
+            <PaxRow label="Trẻ em" list={children} onChange={upChild} type="child" />
+            <PaxRow label="Em bé" list={infants} onChange={upInfant} type="infant" />
 
             <div className="contact-row">
               <label>Số điện thoại <span className="req">*</span></label>
@@ -221,8 +221,8 @@ export default function Booking() {
               />
               <div className={`hint ${/^\d{10}$/.test(phone) ? "ok" : "bad"}`}>
                 {phone.length === 0 ? "Bắt buộc nhập."
-                 : /^\d{10}$/.test(phone) ? "Hợp lệ."
-                 : "Phải đúng 10 số."}
+                  : /^\d{10}$/.test(phone) ? "Hợp lệ."
+                    : "Phải đúng 10 số."}
               </div>
             </div>
 
