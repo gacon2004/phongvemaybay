@@ -11,7 +11,7 @@ const DealsSidebar = () => {
     <aside className="deals">
       <div className="deals-banner">
         <img
-          src="https://ibb.co/kgvw94VC"
+          src="https://i.ibb.co/wNjPwSZm/dfsfsdf.jpg"
           alt="Vietravel Airlines Premium"
           className="plane-icon"
         />

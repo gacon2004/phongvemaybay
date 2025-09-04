@@ -36,11 +36,11 @@ const Footer = () => {
             </div>
             <div>
                 <img src="https://www.abay.vn/_Web/_File/Images/Icons/BoCongThuong.png" alt="Bộ Công Thương" />
-                <img src="https://ibb.co/Y41g3CZL" alt="Bộ Công an" />
-                <img src="https://ibb.co/dJzVTzp3" alt="may bay1" />
-                <img src="https://ibb.co/MkRwMsd1" alt="may bay2" />
-                <img src="https://ibb.co/ZzM0x4G4" alt="may bay3" />
-                <img src="https://ibb.co/VYr0PVcn" alt="may bay4" />
+                <img src="https://i.ibb.co/KcfnXPwr/image.png" alt="Bộ Công an" />
+                <img src="https://i.ibb.co/Lh2cF2gq/image.png" alt="may bay1" />
+                <img src="https://i.ibb.co/fdC642JN/image.png" alt="may bay2" />
+                <img src="https://i.ibb.co/9Hr7WKcK/image.png" alt="may bay3" />
+                <img src="https://i.ibb.co/m51rMJVZ/image.png" alt="may bay4" />
             </div>
           </div>
 
