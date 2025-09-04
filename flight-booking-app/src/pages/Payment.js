@@ -79,7 +79,7 @@ export default function Payment() {
 
             {/* QR fake (ảnh minh họa) */}
             <div className="qr-box">
-              <img src="https://i.imgur.com/7yVDmQJ.png" alt="VietQR" />
+              <img src="https://i.ibb.co/Y7JY2Wtv/image.png" alt="VietQR" />
             </div>
 
             <button className="btn primary" onClick={() => alert("Đã thanh toán (demo)")}>Đã Thanh toán</button>
