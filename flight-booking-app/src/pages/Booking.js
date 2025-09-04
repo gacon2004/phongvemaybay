@@ -16,8 +16,8 @@ const DAYS   = Array.from({ length: 31 }, (_, i) => i + 1);
 const ADULT_TITLES = ["Ông", "Bà", "Anh", "Chị"];
 const CHILD_TITLE  = "Bé";
 
-const makePassenger = (type) => ({
-  id: `${type}-${Date.now()}-${Math.random()}`, 
+const makePassenger = (type,idx) => ({
+  id: `${type}-${idx}`, 
   type, // "adult" | "child" | "infant"
   title: type === "adult" ? "Ông" : "Bé",
   fullName: "",
@@ -84,33 +84,15 @@ export default function Booking() {
   const [infants, setInfants]   = useState([]);
 
   useEffect(() => {
-    setAdults((prev) => {
-      const newList = [...prev];
-      while (newList.length < paxAdults) {
-        newList.push(makePassenger("adult"));
-      }
-      return newList.slice(0, paxAdults);
-    });
+    setAdults(Array.from({ length: paxAdults }, (_, i) => makePassenger("adult", i)));
   }, [paxAdults]);
 
   useEffect(() => {
-    setChildren((prev) => {
-      const newList = [...prev];
-      while (newList.length < paxChildren) {
-        newList.push(makePassenger("child"));
-      }
-      return newList.slice(0, paxChildren);
-    });
+    setChildren(Array.from({ length: paxChildren }, (_, i) => makePassenger("child", i)));
   }, [paxChildren]);
 
   useEffect(() => {
-    setInfants((prev) => {
-      const newList = [...prev];
-      while (newList.length < paxInfants) {
-        newList.push(makePassenger("infant"));
-      }
-      return newList.slice(0, paxInfants);
-    });
+    setInfants(Array.from({ length: paxInfants }, (_, i) => makePassenger("infant", i)));
   }, [paxInfants]);
 
   /* Liên hệ */
