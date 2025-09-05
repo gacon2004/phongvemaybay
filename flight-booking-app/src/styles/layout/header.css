@@ -120,53 +120,70 @@
 /* .menu-open => body overflow hidden ở app.css */
 
 /* ===========================
-   MODAL LIÊN HỆ (giữ nguyên phong cách)
+   MODAL LIÊN HỆ
    =========================== */
-.modal-overlay{
-  position:fixed; inset:0; background:rgba(17,24,39,.55);
-  backdrop-filter: blur(2px); display:grid; place-items:center;
-  z-index:1100; animation: overlayIn .15s ease-out both;
-}
-@keyframes overlayIn{ from{opacity:0} to{opacity:1} }
-
-.modal-card{
-  width:440px; max-width:calc(100% - 32px);
-  background:#fff; border-radius:16px;
-  box-shadow:0 20px 60px rgba(0,0,0,.35);
-  padding:20px 22px 22px; position:relative;
-  animation: modalPop .18s ease-out both;
-}
-@keyframes modalPop{ from{transform:scale(.96);opacity:0} to{transform:scale(1);opacity:1} }
-
-.modal-close{
-  position:absolute; top:10px; right:10px;
-  width:32px; height:32px; border-radius:50%; border:0;
-  background:#f1f5f9; color:#111827; cursor:pointer; font-size:16px;
-}
-.modal-close:hover{ background:#e2e8f0; }
-
-.modal-title{
-  margin:6px 0 14px; text-align:center;
-  font-weight:800; font-size:20px; color:#ff6a00;
-}
-.modal-actions{ display:grid; gap:12px; }
-
-.btn{
-  display:block; width:50%; height:44px; border:0;
-  border-radius:12px; cursor:pointer; font-weight:800;
-  text-decoration:none; text-align:center; line-height:44px;
-  user-select:none; transition: filter .12s, transform .05s;
-}
-.btn-primary{
-  background:linear-gradient(180deg,#2e7cf6,#0a5ed7); color:#fff;
-  box-shadow:0 6px 16px rgba(10,94,215,.25), inset 0 -2px 0 rgba(0,0,0,.08);
-}
-.btn-primary:hover{ filter:brightness(.97); }
-.btn-primary:active{ transform:translateY(1px); }
-.btn-secondary{ background:#f1f5f9; color:#111827; }
-.btn-secondary:hover{ background:#e2e8f0; }
-
-@media (max-width:480px){
-  .modal-card{ padding:18px 16px 20px; }
-  .modal-title{ font-size:18px; }
-}
+   .modal-overlay{
+    position:fixed; inset:0; background:rgba(17,24,39,.55);
+    backdrop-filter: blur(2px);
+    display:grid; place-items:center;
+    z-index:1100;
+    animation: overlayIn .15s ease-out both;
+  }
+  @keyframes overlayIn{ from{opacity:0} to{opacity:1} }
+  
+  .modal-card{
+    width:440px; max-width:calc(100% - 32px);
+    background:#fff; border-radius:16px;
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+    padding:20px 22px 22px; position:relative;
+    animation: modalPop .18s ease-out both;
+  }
+  @keyframes modalPop{
+    from{ transform:scale(.96); opacity:0 }
+    to{   transform:scale(1);   opacity:1 }
+  }
+  
+  .modal-close{
+    position:absolute; top:10px; right:10px;
+    width:32px; height:32px; border-radius:50%; border:0;
+    background:#f1f5f9; color:#111827; cursor:pointer; font-size:16px;
+  }
+  .modal-close:hover{ background:#e2e8f0; }
+  
+  .modal-title{
+    margin:6px 0 14px; text-align:center;
+    font-weight:800; font-size:20px; color:#ff6a00;
+  }
+  
+  /* Căn giữa các nút */
+  .modal-actions{
+    display:grid;
+    gap:12px;
+    justify-items:center;   /* canh giữa theo trục ngang */
+  }
+  
+  .btn{
+    display:block;
+    width:min(240px, 100%); /* gọn và dễ căn giữa */
+    height:44px; border:0; border-radius:12px; cursor:pointer;
+    font-weight:800; text-decoration:none; text-align:center;
+    line-height:44px; user-select:none;
+    transition: filter .12s, transform .05s;
+    margin:0 auto;          /* phòng khi wrapper khác layout */
+  }
+  
+  .btn-primary{
+    background:linear-gradient(180deg,#2e7cf6,#0a5ed7); color:#fff;
+    box-shadow:0 6px 16px rgba(10,94,215,.25), inset 0 -2px 0 rgba(0,0,0,.08);
+  }
+  .btn-primary:hover{ filter:brightness(.97); }
+  .btn-primary:active{ transform:translateY(1px); }
+  
+  .btn-secondary{ background:#f1f5f9; color:#111827; }
+  .btn-secondary:hover{ background:#e2e8f0; }
+  
+  @media (max-width:480px){
+    .modal-card{ padding:18px 16px 20px; }
+    .modal-title{ font-size:18px; }
+  }
+  

@@ -2,112 +2,171 @@
    AirportSelect (component-only)
    ============================ */
 
-/* wrapper */
-.airport-select {
-    position: relative;
-    width: 100%;
+/* ---- Wrapper ---- */
+.airport-select{
+  position: relative;
+  width: 100%;
+}
+
+/* ---- Input (ô chọn điểm đi/đến) ---- */
+.airport-input{
+  width: 100%;
+  height: 38px;
+  padding: 0 10px;
+  border: 1px solid #cfd8ea;
+  background: #ffffff;
+  color: #0f172a;
+  border-radius: 6px;
+  outline: none;
+  line-height: 38px;
+  transition: box-shadow .15s ease, border-color .15s ease;
+}
+.airport-input:focus{
+  border-color: #164495;
+  box-shadow: 0 0 0 3px rgba(22,68,149,.15);
+}
+.airport-input::placeholder{ color:#6b7280; }
+
+/* ---- Nút đổi chiều (nếu có) ---- */
+.airport-swap{
+  height: 34px;
+  width: 34px;
+  border: 0;
+  border-radius: 6px;
+  background: #164495;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex; align-items:center; justify-content:center;
+  transition: transform .12s ease, opacity .2s ease;
+}
+.airport-swap:active{ transform: scale(.96); }
+
+/* ---- Panel Dropdown (render bằng portal) ---- */
+.airport-panel.portal{
+  position: fixed;                /* portal → fixed để đứng độc lập layout */
+  z-index: 100000;
+  max-height: 420px;              /* desktop mặc định */
+  overflow: auto;
+  background: #fff;
+  color: #0f172a;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(2,6,23,.18);
+  overscroll-behavior: contain;
+}
+
+/* ---- Header panel: ô tìm kiếm ---- */
+.airport-panel__top{
+  position: sticky;
+  top: 0;
+  padding: 10px;
+  background: #f8fafc;
+  border-bottom: 1px solid #eef2f7;
+  z-index: 1;
+}
+.airport-search{
+  width: 100%;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  outline: none;
+  transition: box-shadow .15s ease, border-color .15s ease;
+}
+.airport-search:focus{
+  border-color: #0b56d9;
+  box-shadow: 0 0 0 3px rgba(11,86,217,.15);
+}
+
+/* ---- Lưới vùng/sân bay ---- */
+.airport-grid{
+  display: grid;
+  grid-template-columns: repeat(5, minmax(150px, 1fr));
+  gap: 16px;
+  padding: 12px;
+  min-width: 760px;            /* đủ rộng khi có nhiều cột */
+}
+.airport-col{ min-width: 140px; }
+
+.airport-region{
+  font-weight: 800;
+  color: #0b3d9b;
+  margin: 2px 0 8px;
+  letter-spacing: .2px;
+}
+
+.airport-list{ list-style: none; margin: 0; padding: 0; }
+
+.airport-item{
+  padding: 8px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background .12s ease,color .12s ease;
+}
+.airport-item:hover{ background: #f1f5f9; }
+
+.airport-city{ font-weight: 600; }
+.airport-sub{  font-size: 12px; color: #475569; }
+
+/* ---- Danh sách phẳng (nếu không chia cột) ---- */
+.airport-list.flat{ padding: 8px 10px; }
+.airport-empty{ padding: 12px; color: #64748b; }
+
+/* ---- Nhóm input + nút swap (nếu để cạnh nhau) ---- */
+.input-group{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.input-group .airport-input{ flex: 1 1 auto; }
+.input-group .airport-swap{ flex: 0 0 34px; }
+
+/* -------------------------------------------------
+   Responsive
+   ------------------------------------------------- */
+
+/* Tablet: 3 cột gọn */
+@media (max-width: 1024px){
+  .airport-grid{
+    grid-template-columns: repeat(3, minmax(140px, 1fr));
+    min-width: 0;
   }
-  
-  /* input (ô chọn điểm đi/đến) */
-  .airport-input {
-    width: 100%;
-    height: 38px;
-    padding: 0 10px;
-    border: 1px solid #cfd8ea;      /* viền sáng */
-    background: #ffffff;            /* nền trắng */
-    color: #0f172a;                 /* chữ đậm */
-    border-radius: 6px;
-    outline: none;
-    line-height: 38px;
+}
+
+/* Mobile: KHÔNG full-screen, panel là hộp nổi 2 cột
+   – chiều rộng ~92vw, căn giữa theo left/top đã đặt,
+   – không tràn/đẩy lệch layout như sheet full. */
+@media (max-width: 640px){
+  .airport-panel.portal{
+    width: 92vw !important;     /* hộp nổi gọn vừa màn */
+    max-width: 420px;           /* không quá to */
+    max-height: 50vh;           /* đủ thấy nhiều nhưng không che hết */
+    border-radius: 12px;
+    border: 1px solid #e6e9f2;
+    box-shadow: 0 16px 36px rgba(15,23,42,.22);
+    /* giữ nguyên left/top tính bởi JS (không override) */
   }
-  
-  .airport-input::placeholder {
-    color: #6b7280;
-  }
-  
-  /* cụm đổi chiều (nếu bạn dùng button bên phải input) */
-  .airport-swap {
-    height: 34px;
-    width: 34px;
-    border: 0;
-    border-radius: 6px;
-    background: #164495;
-    color: #fff;
-    cursor: pointer;
-  }
-  
-  /* panel Dropdown (render bằng portal) */
-  .airport-panel.portal {
-    position: fixed;                /* portal → fixed để đứng độc lập layout */
-    z-index: 100000;                /* nổi trên banner/side */
-    max-height: 360px;
-    overflow: auto;
-    background: #fff;
-    color: #0f172a;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.15);
-  }
-  
-  /* header của panel: ô tìm kiếm */
-  .airport-panel__top {
-    position: sticky;
-    top: 0;
+
+  .airport-panel__top{
+    background: #ffffff;
+    border-bottom: 1px solid #eef2f7;
     padding: 10px;
-    background: #fafafa;
-    border-bottom: 1px solid #f1f5f9;
-    z-index: 1;
   }
-  
-  .airport-search {
-    width: 100%;
+
+  .airport-search{
     height: 34px;
-    padding: 0 10px;
-    border: 1px solid #e2e8f0;
-    border-radius: 6px;
-    outline: none;
+    border-radius: 10px;
   }
-  
-  /* lưới vùng/sân bay */
-  .airport-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 16px;
-    padding: 12px;
-    min-width: 740px; /* để panel không quá hẹp khi có nhiều cột */
+
+  .airport-grid{
+    grid-template-columns: repeat(2, minmax(120px, 1fr)); /* 2 cột như ảnh */
+    gap: 10px;
+    padding: 10px;
+    min-width: 0;
   }
-  
-  .airport-col { min-width: 140px; }
-  
-  .airport-region {
-    font-weight: 800;
-    color: #0b3d9b;
-    margin-bottom: 8px;
+
+  .airport-item{
+    padding: 10px 10px;
+    border-radius: 10px;
   }
-  
-  .airport-list { list-style: none; margin: 0; padding: 0; }
-  
-  .airport-item {
-    padding: 6px 6px;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-  
-  .airport-item:hover { background: #f1f5f9; }
-  
-  .airport-city { font-weight: 600; }
-  .airport-sub  { font-size: 12px; color: #475569; }
-  
-  /* danh sách phẳng (khi không chia cột) */
-  .airport-list.flat { padding: 8px 10px; }
-  
-  .airport-empty {
-    padding: 12px;
-    color: #64748b;
-  }
-  
-  /* Responsive */
-  @media (max-width: 1024px) {
-    .airport-grid { grid-template-columns: repeat(2, 1fr); min-width: 0; }
-  }
-  
+}
