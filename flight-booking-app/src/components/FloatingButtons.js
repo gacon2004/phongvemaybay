@@ -5,14 +5,14 @@ import React, { useEffect, useState } from "react";
    Cung cấp thêm bản 2x để hiển thị sắc nét trên màn hình retina. */
 const ICONS = {
   zalo: {
-    src:  "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/1024px-Icon_of_Zalo.svg.png",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/1024px-Icon_of_Zalo.svg.png",
     src2: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/1024px-Icon_of_Zalo.svg.png",
-    alt:  "Zalo",
+    alt: "Zalo",
   },
   messenger: {
-    src:  "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Facebook_Messenger_logo_2020.svg/2048px-Facebook_Messenger_logo_2020.svg.png",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Facebook_Messenger_logo_2020.svg/2048px-Facebook_Messenger_logo_2020.svg.png",
     src2: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Facebook_Messenger_logo_2020.svg/2048px-Facebook_Messenger_logo_2020.svg.png",
-    alt:  "Messenger",
+    alt: "Messenger",
   },
 };
 
@@ -58,8 +58,8 @@ export default function FloatingHelp() {
     return () => document.removeEventListener("keydown", onEsc);
   }, [openZaloQR]);
 
-  const openTel       = () => window.open(`tel:${HOTLINE}`);
-  const openZalo      = () => (isMobile() ? window.open(ZALO_LINK, "_blank") : setOpenZaloQR(true));
+  const openTel = () => window.open(`tel:${HOTLINE}`);
+  const openZalo = () => (isMobile() ? window.open(ZALO_LINK, "_blank") : setOpenZaloQR(true));
   const openMessenger = () => window.open(MESSENGER_LINK, "_blank");
 
   return (
@@ -68,7 +68,7 @@ export default function FloatingHelp() {
         <p className="cskh-chip" >
           CSKH
         </p>
-
+        {/* 
         <button
           className="fab fab-zalo"
           data-tip="Chat Zalo"
@@ -76,7 +76,7 @@ export default function FloatingHelp() {
           onClick={openZalo}
         >
           <ImgIcon src={ICONS.zalo.src} src2={ICONS.zalo.src2} alt={ICONS.zalo.alt} />
-        </button>
+        </button> */}
 
         <button
           className="fab fab-msg"
