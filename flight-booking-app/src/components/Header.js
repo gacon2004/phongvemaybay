@@ -116,12 +116,12 @@ export default function Header() {
 
             <div className="modal-actions">
               <a
-                href="https://zalo.me/0828859999"
+                href="https://www.facebook.com/messages/t/464455963428285"
                 target="_blank"
                 rel="noreferrer"
                 className="btn btn-primary"
               >
-                CHĂM SÓC KHÁCH HÀNG
+                HỖ TRỢ
               </a>
               <button
                 type="button"
