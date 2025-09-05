@@ -8,3 +8,4 @@ flight-booking-app/.vite/
 .vscode/
 .DS_Store
 .venv
+.__pycache__
