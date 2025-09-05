@@ -36,7 +36,7 @@ export const toVnIsoDate = (val) => {
 };
 
 const api = axios.create({
-  baseURL: "/api",
+  baseURL: "https://phongvemaybay247.com",
   timeout: 20000,
   headers: { "Content-Type": "application/json; charset=utf-8" },
 });
@@ -47,21 +47,21 @@ const api = axios.create({
  * - Khứ hồi:    { ... + returnDate, date2 (alias), tripType: "roundtrip" }
  */
 export async function searchFlights(form) {
-    const depart = toVnIsoDate(form.departDate);
-    const retn   = toVnIsoDate(form.returnDate);
-    const round  = !!retn;
-  
-    const payload = {
-      from: form.from,
-      to: form.to,
-      date: depart,
-      adults: Number(form.adults) || 1,
-      children: Number(form.children) || 0,
-      infants: Number(form.infants) || 0,
-      tripType: round ? "roundtrip" : "oneway",
-      ...(round ? { retDate: retn } : {}), // <- đúng tên trường
-    };
-  
-    const { data } = await api.post("/search", payload);
-    return data;
-  }
+  const depart = toVnIsoDate(form.departDate);
+  const retn = toVnIsoDate(form.returnDate);
+  const round = !!retn;
+
+  const payload = {
+    from: form.from,
+    to: form.to,
+    date: depart,
+    adults: Number(form.adults) || 1,
+    children: Number(form.children) || 0,
+    infants: Number(form.infants) || 0,
+    tripType: round ? "roundtrip" : "oneway",
+    ...(round ? { retDate: retn } : {}), // <- đúng tên trường
+  };
+
+  const { data } = await api.post("/search", payload);
+  return data;
+}
