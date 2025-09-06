@@ -18,15 +18,18 @@
     color: var(--text);
     background: var(--bg);
     min-height: 100vh;
-    overflow-x: hidden;            /* chặn tràn ngang */
+    overflow-x: hidden;                 /* chặn tràn ngang ở admin */
   }
   .admin-root.is-collapsed{ --side-w: 64px; }
   
-  /* ======= Reset & no-scroll for admin routes ======= */
-  html, body { height: 100%; margin: 0; }
-  body { overflow: hidden; }       /* không để body cuộn */
-  /* nếu App bọc admin trong .bare-main thì bỏ padding/margin */
-  .bare-main { padding: 0 !important; margin: 0 !important; }
+  /* ========== KHÓA SCROLL CHỈ KHI Ở ROUTE ADMIN ==========
+     App.jsx sẽ gắn class is-admin-route cho <main> khi /admin/*
+     -> body không bị ảnh hưởng ở trang khác
+     ====================================================== */
+  .is-admin-route{
+    height: 100vh;                      /* chiếm đúng viewport */
+    overflow: hidden;                   /* KHÔNG cho <main> cuộn */
+  }
   
   /* =======================
      Top bar
@@ -37,8 +40,7 @@
     height: var(--top-h);
     padding: 0 12px;
     background: var(--bg);
-    /* dùng shadow thay vì border để không làm xuất hiện scroll 1-2px */
-    box-shadow: 0 1px 0 var(--line);
+    box-shadow: 0 1px 0 var(--line);    /* tránh lệch 1-2px gây scroll */
   }
   .admin-top .brand{
     font-weight: 800; color: var(--brand);
@@ -59,7 +61,7 @@
     background: var(--bg);
     border-right: 1px solid var(--line);
     transition: width .2s ease;
-    overflow: auto;                /* menu dài thì sidebar cuộn, không phải body */
+    overflow: auto;                     /* menu dài thì sidebar cuộn */
   }
   .menu{ display: flex; flex-direction: column; gap: 6px; padding: 12px; }
   .menu-item{
@@ -80,8 +82,8 @@
     margin-left: var(--side-w);
     padding: 16px;
     transition: margin-left .2s ease;
-    height: calc(100vh - var(--top-h));  /* chỉ cao bằng viewport trừ topbar */
-    overflow: auto;                      /* chỉ phần main cuộn khi nội dung dài */
+    height: calc(100vh - var(--top-h)); /* chỉ cao bằng viewport trừ topbar */
+    overflow: auto;                     /* CHỈ phần main cuộn khi dài */
     overflow-x: hidden;
   }
   
@@ -136,16 +138,38 @@
   .muted{ text-align: center; color: var(--muted); }
   .ellipsis{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 420px; }
   
+  /* Pagination */
+  .pagination{
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 12px;
+    border-top: 1px solid var(--line);
+    background: #fff;
+  }
+  .pg-info{ color: var(--muted); font-size: 14px; }
+  .pg-controls{ display: flex; gap: 6px; }
+  .pg-btn{
+    min-width: 34px; height: 34px;
+    padding: 0 10px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff; cursor: pointer;
+  }
+  .pg-btn:hover{ background: var(--bg-soft); }
+  .pg-btn:disabled{ opacity: .5; cursor: not-allowed; }
+  .pg-btn.num.active{
+    background: #e0f2fe; border-color: #bae6fd; color: #0369a1; font-weight: 600;
+  }
+  
   /* =======================
      Page: Admin Login (no scroll)
      ======================= */
   .admin-auth{
-    min-height: 100vh;             /* chiếm full viewport */
+    min-height: 100vh;                 /* chiếm full viewport */
     display: grid;
-    place-items: center;           /* căn giữa cả dọc & ngang */
+    place-items: center;               /* căn giữa dọc & ngang */
     background: var(--bg-soft);
     padding: 16px;
-    overflow: hidden;              /* tuyệt đối không cuộn */
+    overflow: hidden;                  /* tuyệt đối không cuộn */
   }
   .auth-card{
     width: 100%;
@@ -179,27 +203,5 @@
     .content-head{ flex-direction: column; align-items: stretch; gap: 8px; }
     .actions{ justify-content: space-between; }
     .search{ width: 100%; }
-  }
-  
-  .pagination{
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 10px 12px;
-    border-top: 1px solid var(--line);
-    background: #fff;
-  }
-  .pg-info{ color: var(--muted); font-size: 14px; }
-  .pg-controls{ display: flex; gap: 6px; }
-  
-  .pg-btn{
-    min-width: 34px; height: 34px;
-    padding: 0 10px;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: #fff; cursor: pointer;
-  }
-  .pg-btn:hover{ background: var(--bg-soft); }
-  .pg-btn:disabled{ opacity: .5; cursor: not-allowed; }
-  .pg-btn.num.active{
-    background: #e0f2fe; border-color: #bae6fd; color: #0369a1; font-weight: 600;
   }
   

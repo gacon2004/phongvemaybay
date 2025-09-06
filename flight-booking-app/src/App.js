@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import "./styles/admin/admin.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -11,32 +11,40 @@ import Notice from "./pages/Notice";
 // Admin
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminTickets from "./pages/admin/AdminTickets";
-import AdminGuard from "./components/admin/AdminGuard"; // guard FE
+import AdminGuard from "./components/admin/AdminGuard";
+
+function AdminIndex() {
+  // nếu muốn: đã login thì nhảy thẳng tickets
+  const logged = localStorage.getItem("admin_logged") === "1";
+  return <Navigate to={logged ? "/admin/tickets" : "/admin/login"} replace />;
+}
 
 export default function App() {
   const { pathname } = useLocation();
 
-  // Những trang không muốn hiển thị Header/Footer
-  // -> Ẩn header/footer cho cả khu vực admin
+  // Ẩn header/footer cho cả khu vực admin
   const barePaths = ["/contact-page", "/admin"];
   const isBare = barePaths.some((p) => pathname.startsWith(p));
+  const isAdmin = pathname.startsWith("/admin"); // <- cờ để gắn class khóa scroll
 
   return (
     <>
       {!isBare && <Header />}
 
       {/* 
-        - Normal pages: bọc bằng page-band + container
-        - Bare pages: full-width (tự dàn layout trong page)
+        - Normal pages: page-band + container
+        - Bare pages: full-width
+        - Với admin: thêm class is-admin-route để khóa scroll của trang
       */}
-      <main className={isBare ? "bare-main" : "page-band"}>
+      <main className={`${isBare ? "bare-main" : "page-band"} ${isAdmin ? "is-admin-route" : ""}`}>
         {isBare ? (
           <Routes>
             {/* Bare routes */}
             <Route path="/contact-page" element={<Notice />} />
 
-            {/* Admin routes (bare) */}
-            <Route path="/admin" element={<AdminLogin />} />
+            {/* Admin routes */}
+            <Route path="/admin" element={<AdminIndex />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
             <Route
               path="/admin/tickets"
               element={
@@ -46,7 +54,7 @@ export default function App() {
               }
             />
 
-            {/* Bạn vẫn có thể render các trang thường ở bare nếu muốn */}
+            {/* Có thể để các route thường ở bare nếu muốn */}
             <Route path="/" element={<Home />} />
             <Route path="/flight" element={<Results />} />
             <Route path="/booking" element={<Booking />} />
