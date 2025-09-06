@@ -1,0 +1,205 @@
+/* =======================
+   Admin Layout – base vars
+   ======================= */
+   .admin-root{
+    --side-w: 240px;
+    --top-h: 56px;
+    --radius: 12px;
+  
+    --bg: #ffffff;
+    --bg-soft: #f8fafc;
+    --line: #e2e8f0;
+    --text: #0f172a;
+    --muted: #64748b;
+    --brand: #0ea5e9;
+    --brand-strong: #0284c7;
+    --danger: #ef4444;
+  
+    color: var(--text);
+    background: var(--bg);
+    min-height: 100vh;
+    overflow-x: hidden;            /* chặn tràn ngang */
+  }
+  .admin-root.is-collapsed{ --side-w: 64px; }
+  
+  /* ======= Reset & no-scroll for admin routes ======= */
+  html, body { height: 100%; margin: 0; }
+  body { overflow: hidden; }       /* không để body cuộn */
+  /* nếu App bọc admin trong .bare-main thì bỏ padding/margin */
+  .bare-main { padding: 0 !important; margin: 0 !important; }
+  
+  /* =======================
+     Top bar
+     ======================= */
+  .admin-top{
+    position: sticky; top: 0; z-index: 30;
+    display: flex; align-items: center; gap: 12px;
+    height: var(--top-h);
+    padding: 0 12px;
+    background: var(--bg);
+    /* dùng shadow thay vì border để không làm xuất hiện scroll 1-2px */
+    box-shadow: 0 1px 0 var(--line);
+  }
+  .admin-top .brand{
+    font-weight: 800; color: var(--brand);
+    letter-spacing: .2px; cursor: pointer;
+  }
+  .admin-top .top-right{
+    margin-left: auto; display: flex; align-items: center; gap: 12px;
+  }
+  .admin-top .user{ color: var(--muted); }
+  
+  /* =======================
+     Sidebar
+     ======================= */
+  .admin-side{
+    position: fixed; z-index: 20;
+    top: var(--top-h); bottom: 0; left: 0;
+    width: var(--side-w);
+    background: var(--bg);
+    border-right: 1px solid var(--line);
+    transition: width .2s ease;
+    overflow: auto;                /* menu dài thì sidebar cuộn, không phải body */
+  }
+  .menu{ display: flex; flex-direction: column; gap: 6px; padding: 12px; }
+  .menu-item{
+    display: flex; align-items:center; gap: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    text-decoration: none; color: inherit;
+  }
+  .menu-item:hover{ background: var(--bg-soft); }
+  .menu-item.active{ background: #e0f2fe; color: var(--brand-strong); }
+  .menu-item .icon{ width: 22px; text-align: center; }
+  .menu-item .text{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  
+  /* =======================
+     Main area
+     ======================= */
+  .admin-main{
+    margin-left: var(--side-w);
+    padding: 16px;
+    transition: margin-left .2s ease;
+    height: calc(100vh - var(--top-h));  /* chỉ cao bằng viewport trừ topbar */
+    overflow: auto;                      /* chỉ phần main cuộn khi nội dung dài */
+    overflow-x: hidden;
+  }
+  
+  /* =======================
+     Common UI
+     ======================= */
+  .container{ max-width: 1100px; margin: 0 auto; }
+  .btn{
+    height: 34px; padding: 0 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px; background: var(--bg);
+    cursor: pointer;
+  }
+  .btn:hover{ background: var(--bg-soft); }
+  .btn.primary{ background: var(--brand); color: #fff; border-color: var(--brand); }
+  .btn.primary:hover{ background: var(--brand-strong); border-color: var(--brand-strong); }
+  .btn.danger{ background: var(--danger); color:#fff; border-color: var(--danger); }
+  .btn.small{ height: 30px; padding: 0 10px; font-size: 14px; }
+  
+  .icon-btn{
+    height: 34px; width: 34px; line-height: 34px;
+    border: 1px solid var(--line); border-radius: 8px;
+    background: var(--bg); cursor: pointer; text-align: center;
+  }
+  .icon-btn:hover{ background: var(--bg-soft); }
+  
+  /* =======================
+     Page: Tickets
+     ======================= */
+  .content-head{
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .actions{ display: flex; gap: 8px; align-items: center; }
+  .search{
+    height: 36px; padding: 0 10px; width: 320px;
+    border: 1px solid var(--line); border-radius: 8px;
+    background: var(--bg);
+  }
+  
+  .card{
+    border: 1px solid var(--line); border-radius: var(--radius);
+    background: var(--bg); overflow: hidden;
+  }
+  
+  /* Table */
+  .table-wrap{ width: 100%; overflow-x: auto; }
+  .table{ width: 100%; border-collapse: collapse; }
+  .table th, .table td{ padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; }
+  .table thead th{ background: var(--bg-soft); font-weight: 600; }
+  .table .right{ text-align: right; }
+  .muted{ text-align: center; color: var(--muted); }
+  .ellipsis{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 420px; }
+  
+  /* =======================
+     Page: Admin Login (no scroll)
+     ======================= */
+  .admin-auth{
+    min-height: 100vh;             /* chiếm full viewport */
+    display: grid;
+    place-items: center;           /* căn giữa cả dọc & ngang */
+    background: var(--bg-soft);
+    padding: 16px;
+    overflow: hidden;              /* tuyệt đối không cuộn */
+  }
+  .auth-card{
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px 16px;
+    box-shadow: 0 8px 24px rgba(2, 8, 23, .06);
+  }
+  .auth-card h2{ margin: 0 0 12px 0; }
+  .auth-card form{ display: grid; gap: 10px; }
+  .auth-card input{
+    height: 40px; padding: 0 12px;
+    border: 1px solid var(--line); border-radius: 10px;
+    background: #fff;
+  }
+  .auth-card .hint{ color: var(--muted); font-size: 13px; }
+  
+  /* =======================
+     Responsive
+     ======================= */
+  @media (max-width: 920px){
+    .admin-root{ --side-w: 200px; }
+    .search{ width: 240px; }
+  }
+  @media (max-width: 720px){
+    .admin-root{ --side-w: 64px; }
+    .menu-item .text{ display: none; }
+    .admin-main{ padding: 12px; }
+    .content-head{ flex-direction: column; align-items: stretch; gap: 8px; }
+    .actions{ justify-content: space-between; }
+    .search{ width: 100%; }
+  }
+  
+  .pagination{
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 12px;
+    border-top: 1px solid var(--line);
+    background: #fff;
+  }
+  .pg-info{ color: var(--muted); font-size: 14px; }
+  .pg-controls{ display: flex; gap: 6px; }
+  
+  .pg-btn{
+    min-width: 34px; height: 34px;
+    padding: 0 10px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff; cursor: pointer;
+  }
+  .pg-btn:hover{ background: var(--bg-soft); }
+  .pg-btn:disabled{ opacity: .5; cursor: not-allowed; }
+  .pg-btn.num.active{
+    background: #e0f2fe; border-color: #bae6fd; color: #0369a1; font-weight: 600;
+  }
+  

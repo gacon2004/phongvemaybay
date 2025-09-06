@@ -3,11 +3,10 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/bookings/booking.css";
 
-/* ===== Helpers, constants (PHẢI có để tránh no-undef) ===== */
+/* ================= Helpers & Constants ================= */
+const API_BASE = process.env.REACT_APP_API_URL || ""; // nếu không set .env sẽ fallback relative path
 const money = (n) =>
-  (Number(n || 0))
-    .toLocaleString("vi-VN", { maximumFractionDigits: 0 })
-    .replaceAll(",", ".") + " đ";
+  (Number(n || 0)).toLocaleString("vi-VN", { maximumFractionDigits: 0 }).replaceAll(",", ".") + " đ";
 
 const YEARS = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i);
 const MONTHS = Array.from({ length: 12 }, (_, i) => i + 1);
@@ -26,11 +25,12 @@ const makePassenger = (type, idx) => ({
   year: type === "adult" ? 1990 : type === "child" ? 2015 : 2023,
 });
 
+/* ================= Component ================= */
 export default function Booking() {
   const nav = useNavigate();
   const { state } = useLocation();
 
-  // Nhận form + flight từ Results (hoặc fallback demo)
+  // Dữ liệu form đã chọn ở trang Results (fallback demo nếu vào trực tiếp)
   const form = state?.form || {
     adults: 1,
     children: 0,
@@ -39,22 +39,23 @@ export default function Booking() {
     to_label: "Tp Hồ Chí Minh (SGN)",
   };
 
+  // Thông tin chuyến bay (fallback demo)
   const flight = state?.flight || {
     airlineName: "Vietravel Airlines",
     airlineLogo: "",
     aircraft: "Airbus A321",
     from_label: form.from_label,
     to_label: form.to_label,
-    depTime: "22:50",
-    arrTime: "01:00",
-    segmentText: `Chặng 1: ${form.from_label} (${form?.depTime || "22:50"}) — ${form.to_label} (${form?.arrTime || "01:00"}) | Hãng: Vietravel Airlines | Máy bay: Airbus A321`,
+    depTime: "22:15",
+    arrTime: "00:25",
+    segmentText: `Chặng 1: ${form.from_label} (22:15) — ${form.to_label} (00:25) | Hãng: Vietravel Airlines | Máy bay: Airbus A321`,
   };
 
-  // Giá đơn vị (nếu Results truyền priceDetails thì dùng, không thì dùng ví dụ)
+  // Giá 1 khách (nếu trang Results truyền priceDetails thì dùng, không thì demo)
   const priceDetails = state?.priceDetails || {
-    base: 2119000, // ví dụ
+    base: 1949000,
     taxes: 0,
-    total: 2119000,
+    total: 1949000,
   };
   const perBase = priceDetails.base ?? Math.max((priceDetails.total || 0) - (priceDetails.taxes || 0), 0);
   const perTax = priceDetails.taxes ?? Math.max((priceDetails.total || 0) - perBase, 0);
@@ -65,20 +66,20 @@ export default function Booking() {
 
   // Tính tổng theo số khách
   const pricePerAdult = perBase + perTax;
-  const pricePerChild = perBase + perTax; // có thể khác nếu cần
-  const pricePerInfant = 0;                // ví dụ: em bé 0đ
+  const pricePerChild = perBase + perTax; // có thể chỉnh nếu chính sách khác
+  const pricePerInfant = 0; // ví dụ: em bé 0đ
 
   const subAdults = paxAdults * pricePerAdult;
   const subChildren = paxChildren * pricePerChild;
   const subInfants = paxInfants * pricePerInfant;
   const subTotal = subAdults + subChildren + subInfants;
 
-  // Voucher 20% (áp 1 lần)
+  // Voucher 20% — mặc định KHÔNG bật, cho phép toggle
   const [voucherApplied, setVoucherApplied] = useState(false);
   const discount = useMemo(() => (voucherApplied ? Math.round(subTotal * 0.2) : 0), [voucherApplied, subTotal]);
   const grandTotal = useMemo(() => subTotal - discount, [subTotal, discount]);
 
-  /* Tạo form hành khách theo số lượng */
+  /* ===== Danh sách hành khách theo số lượng ===== */
   const [adults, setAdults] = useState([]);
   const [children, setChildren] = useState([]);
   const [infants, setInfants] = useState([]);
@@ -95,7 +96,7 @@ export default function Booking() {
     setInfants(Array.from({ length: paxInfants }, (_, i) => makePassenger("infant", i)));
   }, [paxInfants]);
 
-  /* Liên hệ */
+  /* ===== Liên hệ ===== */
   const [phone, setPhone] = useState("");
   const onPhoneChange = (e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10));
 
@@ -118,32 +119,79 @@ export default function Booking() {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
 
+  /* ===== Submit => gọi BE + chuyển Payment ===== */
   const submit = async (e) => {
     e.preventDefault();
     setErr("");
+
     if (!allValid) {
       if (!/^\d{10}$/.test(phone)) return setErr("Số điện thoại phải đủ 10 số.");
       return setErr("Vui lòng điền đầy đủ thông tin tất cả hành khách.");
     }
 
-    // Khi hợp lệ: điều hướng sang trang Payment kèm dữ liệu order
-    const orderData = {
-      flight,
-      passengers: [...adults, ...children, ...infants],
-      phone,
-      subTotal,
-      discount,
-      grandTotal,
+    // lấy người liên hệ để lưu (mặc định: Người lớn 1 nếu có, nếu không lấy trẻ em 1, nếu vẫn không có thì em bé 1)
+    const primary =
+      adults[0] ||
+      children[0] ||
+      infants[0] || { title: "Ông", fullName: "KHÁCH", day: 1, month: 1, year: 1990 };
+
+    const name = `${primary.title} ${primary.fullName || "CHƯA NHẬP"}`.trim();
+    // KHÔNG thêm ngày; chỉ giữ thông tin tuyến + giờ
+    const chuyenbay = `${flight.from_label} → ${flight.to_label} | ${flight.depTime} - ${flight.arrTime}`;
+
+    // Chỉ gửi 4 trường đúng schema; price luôn là GIÁ CUỐI (theo voucherApplied)
+    const payload = {
+      name,                 // "Ông NGUYEN VAN A"
+      sdt: phone,           // "0987654321"
+      chuyenbay,            // "Hà Nội (HAN) → TP Hồ Chí Minh (SGN) | 22:15 - 00:25"
+      price: grandTotal,    // <-- giá cuối cùng theo voucher
     };
-    nav("/payment", { state: orderData });
+
+    const url = `${API_BASE}/info/infomation`;
+
+    try {
+      setLoading(true);
+
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        setErr(`POST ${url} failed: ${res.status} ${text}`);
+        setLoading(false);
+        return;
+      }
+
+      // => chuyển trang Payment, mang theo order
+      const orderData = {
+        flight,
+        passengers: [...adults, ...children, ...infants],
+        phone,
+        subTotal,
+        discount,
+        grandTotal,
+        voucherApplied, // để trang payment hiển thị
+      };
+      nav("/payment", { state: orderData });
+    } catch (e2) {
+      setErr(`POST ${url} error: ${e2.message}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
+  /* ===== Sub-components ===== */
   const TitleSelect = ({ value, onChange, type }) => {
     if (type === "adult") {
       return (
         <select value={value} onChange={(e) => onChange(e.target.value)}>
           {ADULT_TITLES.map((t) => (
-            <option key={t} value={t}>{t}</option>
+            <option key={t} value={t}>
+              {t}
+            </option>
           ))}
         </select>
       );
@@ -159,7 +207,9 @@ export default function Booking() {
     <>
       {list.map((p, idx) => (
         <div className="pax-block" key={p.id}>
-          <div className="pax-title">{label} {idx + 1}</div>
+          <div className="pax-title">
+            {label} {idx + 1}
+          </div>
 
           <div className="row-2">
             <TitleSelect value={p.title} type={type} onChange={(v) => onChange(idx, "title", v)} />
@@ -172,13 +222,25 @@ export default function Booking() {
 
           <div className="row-3">
             <select value={p.day} onChange={(e) => onChange(idx, "day", Number(e.target.value))}>
-              {DAYS.map((d) => <option key={d} value={d}>{d}</option>)}
+              {DAYS.map((d) => (
+                <option key={d} value={d}>
+                  {d}
+                </option>
+              ))}
             </select>
             <select value={p.month} onChange={(e) => onChange(idx, "month", Number(e.target.value))}>
-              {MONTHS.map((m) => <option key={m} value={m}>Tháng {m}</option>)}
+              {MONTHS.map((m) => (
+                <option key={m} value={m}>
+                  Tháng {m}
+                </option>
+              ))}
             </select>
             <select value={p.year} onChange={(e) => onChange(idx, "year", Number(e.target.value))}>
-              {YEARS.map((y) => <option key={y} value={y}>{y}</option>)}
+              {YEARS.map((y) => (
+                <option key={y} value={y}>
+                  {y}
+                </option>
+              ))}
             </select>
           </div>
         </div>
@@ -186,6 +248,7 @@ export default function Booking() {
     </>
   );
 
+  /* ================= Render ================= */
   return (
     <div className="booking-wrap container">
       <div className="booking-grid">
@@ -206,12 +269,16 @@ export default function Booking() {
           <form className="box" onSubmit={submit}>
             <div className="box-header">Thông tin hành khách và liên hệ</div>
 
+            {/* Danh sách hành khách theo số lượng */}
             <PaxRow label="Người lớn" list={adults} onChange={upAdult} type="adult" />
             <PaxRow label="Trẻ em" list={children} onChange={upChild} type="child" />
             <PaxRow label="Em bé" list={infants} onChange={upInfant} type="infant" />
 
+            {/* Liên hệ */}
             <div className="contact-row">
-              <label>Số điện thoại <span className="req">*</span></label>
+              <label>
+                Số điện thoại <span className="req">*</span>
+              </label>
               <input
                 inputMode="numeric"
                 pattern="\d*"
@@ -220,9 +287,7 @@ export default function Booking() {
                 onChange={onPhoneChange}
               />
               <div className={`hint ${/^\d{10}$/.test(phone) ? "ok" : "bad"}`}>
-                {phone.length === 0 ? "Bắt buộc nhập."
-                  : /^\d{10}$/.test(phone) ? "Hợp lệ."
-                    : "Phải đúng 10 số."}
+                {phone.length === 0 ? "Bắt buộc nhập." : /^\d{10}$/.test(phone) ? "Hợp lệ." : "Phải đúng 10 số."}
               </div>
             </div>
 
@@ -271,14 +336,13 @@ export default function Booking() {
             <button
               className="voucher"
               type="button"
-              disabled={voucherApplied || subTotal === 0}
-              onClick={() => setVoucherApplied(true)}
+              disabled={subTotal === 0}
+              onClick={() => setVoucherApplied((v) => !v)}
             >
               {voucherApplied ? "Đã kích hoạt Voucher 20%" : "Kích hoạt Voucher 20%"}
             </button>
             <div className="voucher-note">
-              Khuyến mãi cho khách hàng khi dùng mã voucher giảm 20% cho mỗi chuyến bay.
-              Áp dụng khi còn suất ưu đãi.
+              Khuyến mãi cho khách hàng khi dùng mã voucher giảm 20% cho mỗi chuyến bay. Áp dụng khi còn suất ưu đãi.
             </div>
 
             <div className="total">

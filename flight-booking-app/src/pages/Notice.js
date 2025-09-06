@@ -13,11 +13,11 @@ export default function Notice() {
         <div className="notice-title">Thông báo</div>
         <p className="notice-text">
           Bạn đã hoàn tất việc đặt vé và thanh toán. Vui lòng liên hệ
-          <strong> Fanpage</strong> hoặc <strong>Zalo</strong> để được duyệt vé sớm nhất.
+          <strong> Facebook </strong> để được duyệt vé sớm nhất.
         </p>
 
         <button type="button" className="notice-btn" onClick={gotoFanpage}>
-          Đi đến Fanpage
+          Đi đến Facebook
         </button>
       </div>
     </div>

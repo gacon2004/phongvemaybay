@@ -56,7 +56,7 @@ export default function SearchCard() {
     setLoading(true);
     try {
       const results = await searchFlights(form);
-      nav("/ket-qua", { state: { form, results } });
+      nav("/flight", { state: { form, results } });
     } catch (err) {
       setError(err?.response?.data?.error || err.message || "Không tìm được chuyến bay.");
     } finally {

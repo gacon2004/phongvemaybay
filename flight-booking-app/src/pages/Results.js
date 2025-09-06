@@ -223,7 +223,7 @@ export default function Results() {
         <div className="fc-price">{f.price ? money(f.price) : "—"}</div>
         <button
           className="btn choose"
-          onClick={() => nav("/dat-ve", { state: toBookingState(f) })}
+          onClick={() => nav("/booking", { state: toBookingState(f) })}
         >
           Chọn
         </button>

@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from Backend.auth.auth_routers import router as auth_router
 from dotenv import load_dotenv
 import os
 
@@ -48,3 +49,4 @@ app.add_middleware(
 app.include_router(vemaybay_router)
 app.include_router(payment_router)
 app.include_router(admin_router)
+app.include_router(auth_router)
