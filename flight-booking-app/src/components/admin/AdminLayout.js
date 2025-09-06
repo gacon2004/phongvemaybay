@@ -19,7 +19,7 @@ export default function AdminLayout({ children }) {
         <button className="icon-btn" onClick={() => setCollapsed(v => !v)} title="Thu gọn/ Mở rộng menu">
           ☰
         </button>
-        <div className="brand" onClick={() => nav("/admin/tickets")}>✈️ Admin Panel</div>
+        <div className="brand" onClick={() => nav("/admin/tickets")}>✈️ Admin Dashboard</div>
         <div className="top-right">
           <span className="user">
             {user?.full_name || user?.username || "Admin"}
