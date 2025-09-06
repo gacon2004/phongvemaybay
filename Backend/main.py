@@ -9,6 +9,7 @@ load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
 
 from Backend.client.vemaybay_router import router as vemaybay_router
 from Backend.payments.routers import router as payment_router
+from Backend.admin.ticket_routers import router as admin_router
 app = FastAPI(
     title="Example API",
     description="This is an example API of FastAPI",
@@ -46,3 +47,4 @@ app.add_middleware(
 
 app.include_router(vemaybay_router)
 app.include_router(payment_router)
+app.include_router(admin_router)
