@@ -1,11 +1,51 @@
-# Frontend
+# ===== Env files (root & subfolders)
+.env
+.env.*
+!.env.example
+
+# ===== Python / Backend
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+dist/
+build/
+pip-wheel-metadata/
+.venv/
+venv/
+ENV/
+.envrc
+
+# Nếu backend ở thư mục Backend/ (an toàn khi lồng)
+Backend/__pycache__/
+Backend/.venv/
+Backend/*.log
+Backend/.env
+Backend/.env.*
+
+# ===== Node/React (flight-booking-app)
 flight-booking-app/node_modules/
-flight-booking-app/.env
 flight-booking-app/dist/
 flight-booking-app/build/
 flight-booking-app/.vite/
-# IDE
+flight-booking-app/.cache/
+flight-booking-app/.next/
+flight-booking-app/npm-debug.log*
+flight-booking-app/yarn-error.log*
+flight-booking-app/.env
+flight-booking-app/.env.*
+!flight-booking-app/.env.example
+
+# ===== Logs (chung)
+logs/
+*.log
+
+# ===== IDE / OS
 .vscode/
+.idea/
 .DS_Store
-.venv
-.__pycache__
+Thumbs.db
