@@ -22,6 +22,5 @@ def post_payment_info(payment_model : Payment_infor_model):
 
 @router.post("/search")
 async def search_flights_endpoint(payload: dict):
-    # Gọi đến hàm controller để xử lý
     results = await search_flights(payload)
     return results
